@@ -10,18 +10,20 @@ namespace UtilityLog
 {
     public class SQLiteLogger : IEnableLogger
     {
+        private static readonly string statement = $"SELECT MAX({nameof(Log.RunCount)}) as {nameof(Runcount.Value)} FROM {nameof(Log)}";
+
         private readonly Subject<Unit> isInitialised = new Subject<Unit>();
 
-        public SQLiteLogger(SQLiteAsyncConnection sqliteConnection)
+        public SQLiteLogger(SQLiteAsyncConnection sqliteAsyncConnection)
         {
 
-            var obs = sqliteConnection.CreateTableAsync<Log>()
+            var obs = sqliteAsyncConnection.CreateTableAsync<Log>()
                 .ToObservable();
 
             _ = ObservableLogger
                 .Instance
                 .Messages
-                .CombineLatest(obs, RunCount(sqliteConnection, obs), (a, b, c) => (a.level, a.message, b, c))
+                .CombineLatest(obs, RunCount(sqliteAsyncConnection, obs), (a, b, c) => (a.level, a.message, b, c))
                 .Subscribe(async c =>
                 {
                     var (level, message, result, runCount) = c;
@@ -29,11 +31,23 @@ namespace UtilityLog
                     {
                         if (result == CreateTableResult.Created)
                             this.Log().Info($"Table {nameof(Log)} has been {result.ToString()}.");
-                        await sqliteConnection.InsertAsync(new Log(message, level, runCount));
+                        if (message is string msg)
+                            await sqliteAsyncConnection.InsertAsync(new Log(msg, level, runCount));
+                        if (message is Exception exception)
+                        {
+                            var guid = Guid.NewGuid();
+                            while (exception != null)
+                            {
+                                await sqliteAsyncConnection.InsertAsync(new Log(exception, level, runCount) { Key = guid });
+                                exception = exception.InnerException;
+                            }
+                        }
+
+
                         isInitialised.OnNext(Unit.Default);
                         isInitialised.OnCompleted();
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex)
                     {
 
                     }
@@ -54,12 +68,23 @@ namespace UtilityLog
             _ = ObservableLogger
                 .Instance
                 .Messages
-                .Subscribe(async c =>
+                .Subscribe(c =>
                 {
                     var (level, message) = c;
                     try
                     {
-                        sqliteConnection.Insert(new Log(message, level, runCount));
+                        if (message is string msg)
+                            sqliteConnection.Insert(new Log(msg, level, runCount));
+                        if (message is System.Exception exception)
+                        {
+                            var guid = Guid.NewGuid();
+                            while (exception != null)
+                            {
+                                sqliteConnection.Insert(new Log(exception, level, runCount) { Key = guid });
+                                exception = exception.InnerException;
+                            }
+                        }
+     
                         isInitialised.OnNext(Unit.Default);
                         isInitialised.OnCompleted();
                     }
@@ -76,15 +101,17 @@ namespace UtilityLog
 
         public IObservable<Unit> IsInitialised => isInitialised;
 
+
         private int RunCount(SQLiteConnection sqliteConnection)
         {
-            return sqliteConnection.FindWithQuery<Runcount>($"SELECT MAX({nameof(Log.RunCount)}) as {nameof(Runcount.Value)} FROM {nameof(Log)}").Value ?? 0 + 1;
+            var ss = sqliteConnection.FindWithQuery<Runcount>(statement).Value;
+            return (ss ?? 0) + 1;
         }
 
         private IObservable<int> RunCount(SQLiteAsyncConnection sqliteConnection, IObservable<CreateTableResult> observable)
         {
             return observable
-                .SelectMany(a => sqliteConnection.FindWithQueryAsync<Runcount>($"SELECT MAX({nameof(Log.RunCount)}) as {nameof(Runcount.Value)} FROM {nameof(Log)}"))
+                .SelectMany(a => sqliteConnection.FindWithQueryAsync<Runcount>(statement))
                 .Select(a => a.Value ?? 0)
                 .Select(a => a + 1);
         }

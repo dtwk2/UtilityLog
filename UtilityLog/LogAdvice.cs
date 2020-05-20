@@ -1,26 +1,40 @@
 ﻿using System;
-using System.Linq;
+using System.ComponentModel;
 using ArxOne.MrAdvice.Advice;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Splat;
 
 namespace UtilityLog
 {
-   public class LogAdvice : Attribute, IMethodAdvice, IEnableLogger
-   {
-      public void Advise(MethodAdviceContext context)
-      {
-         // do things you want here
-         this.Log().Info(
-               "Method Name : " + context.TargetName + Environment.NewLine +
-                    "Target Type : " + context.TargetType.FullName + Environment.NewLine +
-                     "Arguments : " + string.Join(", ", context.Arguments.Select(JsonConvert.SerializeObject)));
+    [Description("Need to inclide MrAdvice in main project for this to work.")]
+    public class LogAdvice : Attribute, IMethodAdvice, IEnableLogger
+    {
+        public void Advise(MethodAdviceContext context)
+        {
+            var enter = JObject.FromObject(new
+            {
+                MethodName = context.TargetName,
+                TargetType = context.TargetType.FullName,
+                Arguments = new JArray(context.Arguments)
+            });
 
-         context.Proceed(); // this calls the original method
-                            // do other things here
-         if (context.HasReturnValue)
-            this.Log().Info("Method Name : " + context.TargetName + Environment.NewLine +
-                            "Return Value : " + context.ReturnValue);
-      }
-   }
+            // do things you want here
+            this.Log().Info(enter.ToString());
+
+
+            context.Proceed(); // this calls the original method
+                               // do other things here
+            if (context.HasReturnValue)
+            {
+                var retrn = JObject.FromObject(new
+                {
+                    MethodName = context.TargetName,
+                    context.ReturnValue,
+
+                });
+                this.Log().Info(retrn.ToString());
+            }
+
+        }
+    }
 }
