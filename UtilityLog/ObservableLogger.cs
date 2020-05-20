@@ -42,7 +42,6 @@ namespace UtilityLog
             if (logLevel < this.Level) return;
 
             this.messages.OnNext((logLevel, message));
-            // throw new NotImplementedException();
         }
 
         public void Write(System.Exception exception, [Localizable(false)] string message, [Localizable(false)] Type type, LogLevel logLevel)
@@ -50,7 +49,6 @@ namespace UtilityLog
             if (logLevel < this.Level) return;
 
             this.messages.OnNext((logLevel, new Exception(message, exception)));
-            //  throw new NotImplementedException();
         }
     }
 }

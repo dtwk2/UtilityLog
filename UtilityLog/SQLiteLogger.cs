@@ -43,7 +43,6 @@ namespace UtilityLog
                             }
                         }
 
-
                         isInitialised.OnNext(Unit.Default);
                         isInitialised.OnCompleted();
                     }
@@ -100,7 +99,6 @@ namespace UtilityLog
         }
 
         public IObservable<Unit> IsInitialised => isInitialised;
-
 
         private int RunCount(SQLiteConnection sqliteConnection)
         {

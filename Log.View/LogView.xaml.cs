@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using Splat;
 using UtilityLog;
 
-namespace ApplicationUpdate.View
+namespace UtilityLog.View
 {
     /// <summary>
     /// Interaction logic for LogView.xaml
@@ -32,7 +32,7 @@ namespace ApplicationUpdate.View
             var dis = ObservableLogger
                 .Instance
                 .Messages
-                .Scan(new StringBuilder(), (sb, next) => sb.Append("[").Append(next.Item1.ToString()).Append("] ").AppendLine(next.Item2))
+                .Scan(new StringBuilder(), (sb, next) => sb.Append("[").Append(next.Item1.ToString()).Append("] ").AppendLine(next.message.ToString()))
                 //.CombineLatest(ControlChanges.Select(a => a as TextBox).Where(a => a != null), (a, b) => (a, b))
                 .Subscribe(c =>
                 {
