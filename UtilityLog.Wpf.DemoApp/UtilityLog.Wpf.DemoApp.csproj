@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Log.View\UtilityLog.View.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
 </Project>

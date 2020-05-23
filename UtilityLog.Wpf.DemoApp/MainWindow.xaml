@@ -7,8 +7,16 @@
         xmlns:view="clr-namespace:UtilityLog.View;assembly=UtilityLog.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <UniformGrid Columns="1">
-        <view:LogView x:Name="LogView1"></view:LogView>
-        <view:LogDbView x:Name="LogDbView1"></view:LogDbView>
-    </UniformGrid>
+    <DataGrid>
+
+
+        <ToolBar>
+            <Button x:Name="SendException" FontSize="15" Content="Send Exception"></Button>
+        </ToolBar>
+
+        <UniformGrid Columns="1">
+            <view:LogView x:Name="LogView1"></view:LogView>
+            <view:LogDbView x:Name="LogDbView1"></view:LogDbView>
+        </UniformGrid>
+    </DataGrid>
 </Window>

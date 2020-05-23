@@ -18,6 +18,12 @@ namespace UtilityLog.Wpf.DemoApp
         public MainWindow()
         {
             InitializeComponent();
+
+            var command = ReactiveCommand.Create<object, object>(a => a);
+             this.SendException.Command = command;
+
+
+                 
             SQLitePCL.Batteries.Init();
             var conn = UtilityDAL.Sqlite.ConnectionFactory.Create<Log>(path);
 
@@ -32,7 +38,7 @@ namespace UtilityLog.Wpf.DemoApp
 
             //_ = Observable.Interval(TimeSpan.FromSeconds(5)).StartWith(0).Subscribe(a => RandomMethod(GetRandomEmail(), GetRandomFileName(), GetRandomInt()));
 
-            _ = Observable.Interval(TimeSpan.FromSeconds(7)).StartWith(0).Subscribe(ThrowException);
+            _ = command.Subscribe(ThrowException);
 
             //_ = Observable.Empty<long>().StartWith(0).Subscribe(a=>
             //{
@@ -49,7 +55,7 @@ namespace UtilityLog.Wpf.DemoApp
         }
 
         [ExceptionAdvice]
-        static void ThrowException(long l)
+        static void ThrowException(object l)
         {
             throw new Exception("no exception - Method has LogAdviceAttribute");
         }
