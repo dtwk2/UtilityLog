@@ -9,7 +9,7 @@ namespace UtilityLog
  
         public Log(string message, LogLevel level = LogLevel.Info, int runCount = 0)
         {
-            ExceptionText = message;
+            Details = message;
             Level = level;
             Date = DateTime.Now;
             RunCount = runCount;
@@ -17,7 +17,7 @@ namespace UtilityLog
 
         public Log(Exception exception, LogLevel level = LogLevel.Error, int runCount = 0)
         {
-            ExceptionText = Newtonsoft.Json.JsonConvert.SerializeObject(new LogException { Source = exception.Source, Message = exception.Message, StackTrace = exception.StackTrace });
+            Details = Newtonsoft.Json.JsonConvert.SerializeObject(exception);
             Level = level;
             Date = DateTime.Now;
             RunCount = runCount;
@@ -29,7 +29,8 @@ namespace UtilityLog
 
         public Guid Key { get; set; }
 
-        public string ExceptionText { get; set; }
+        [Browsable(false)]
+        public string Details { get; set; }
 
         public DateTime Date { get; set; }
 
@@ -39,20 +40,20 @@ namespace UtilityLog
 
         [Browsable(false)]
         [SQLite.Ignore]
-        public LogException Exception => Deserialise();
+        public Exception Exception => Deserialise();
 
         [SQLite.Ignore]
-        public string Source => Exception.Source;
+        public string Source => Exception?.Source;
 
         [SQLite.Ignore]
-        public string Message => Exception.Message;
+        public string Message => Exception?.Message ?? Details;
 
         [SQLite.Ignore]
-        public string StackTrace => Exception.StackTrace;
+        public string StackTrace => Exception?.StackTrace;
 
-        LogException Deserialise()
+        Exception Deserialise()
         {
-            (LogException failure, bool b) = JsonHelper.TryParseJson<LogException>(ExceptionText);
+            (Exception failure, bool b) = JsonHelper.TryParseJson<Exception>(Details);
             if (b)
                 return failure;
             else
@@ -60,18 +61,6 @@ namespace UtilityLog
         }
    }
 
-    public struct LogException
-    {
-
-        public string Source { get; set; }
-
-        public string Message { get; set; }
-
-        public string StackTrace { get; set; }
-
-        //public LogException InnerException { get; set; }
-
-    }
 
     static class JsonHelper
     {

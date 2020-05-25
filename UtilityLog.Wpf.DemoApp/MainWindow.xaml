@@ -5,18 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UtilityLog.Wpf.DemoApp"
         xmlns:view="clr-namespace:UtilityLog.View;assembly=UtilityLog.View"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <DataGrid>
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button" >
+            <Setter Property="Width" Value="230"></Setter>
+            <Setter Property="Height" Value="50"></Setter>
+            <Setter Property="Padding" Value="14"></Setter>
+            <Setter Property="FontSize" Value="12"></Setter>
+            <Setter Property="Margin" Value="10,0"></Setter>
+           
+        </Style>
+        <view:LogDbView x:Key="LogDbView1"></view:LogDbView>
+        <Button x:Key="SendException" Style="{StaticResource ButtonStyle}" Content="send exception" ></Button>
+        <Button x:Key="SendUnhandledException" Content="send unhandled exception"  Style="{StaticResource ButtonStyle}"></Button>
 
+        <materialDesign:DialogHost x:Key="DialogHost1">
+            
+  
+        <DockPanel >
 
-        <ToolBar>
-            <Button x:Name="SendException" FontSize="15" Content="Send Exception"></Button>
-        </ToolBar>
+            <ToolBar DockPanel.Dock="Top" FontWeight="DemiBold">
+                <StaticResource ResourceKey="SendException"></StaticResource>
+                <StaticResource ResourceKey="SendUnhandledException"></StaticResource>
+            </ToolBar>
+            <StaticResource ResourceKey="LogDbView1"></StaticResource>
+        </DockPanel>
+        </materialDesign:DialogHost>
+    </Window.Resources>
+  
 
         <UniformGrid Columns="1">
-            <view:LogView x:Name="LogView1"></view:LogView>
-            <view:LogDbView x:Name="LogDbView1"></view:LogDbView>
+            <view:MainView >
+                <view:MainView.MainContent>
+                <StaticResource ResourceKey="DialogHost1"></StaticResource>
+            </view:MainView.MainContent>
+            </view:MainView>
+      
         </UniformGrid>
-    </DataGrid>
 </Window>

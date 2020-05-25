@@ -20,8 +20,7 @@ namespace UtilityLog.View
     public partial class LogDbView : UserControl
     {
 
-        public static readonly DependencyProperty ConnectionProperty =
-            DependencyProperty.Register("Connection", typeof(SQLiteConnection), typeof(LogDbView), new PropertyMetadata(null, Changed));
+        public static readonly DependencyProperty ConnectionProperty = DependencyProperty.Register("Connection", typeof(SQLiteConnection), typeof(LogDbView), new PropertyMetadata(null, Changed));
 
         public LogDbView()
         {

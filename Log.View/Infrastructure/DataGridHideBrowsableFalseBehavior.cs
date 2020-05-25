@@ -2,14 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 
 
-namespace UtilityLog.View.Infrastucture
+namespace UtilityLog.View.Infrastructure
 {
-    public class DataGridHideBrowsableFalseBehavior : Behavior<DataGrid>
+    public class DataGridCustomDataTemplateBehavior : Behavior<DataGrid>
     {
+        private ResourceDictionary resourceDictionary;
+
         protected override void OnAttached()
         {
             AssociatedObject.AutoGeneratingColumn += AssociatedObject_AutoGeneratingColumn;
@@ -18,9 +22,16 @@ namespace UtilityLog.View.Infrastucture
 
         private void AssociatedObject_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (((PropertyDescriptor)e.PropertyDescriptor).IsBrowsable == false)
-                e.Cancel = true;
-        }
-    }
+            if (e.PropertyDescriptor is PropertyDescriptor propertyDescriptor)
+            {
+                if (propertyDescriptor.IsBrowsable == false)
+                    e.Cancel = true;
 
+            }
+        }
+
+
+
+    }
 }
+

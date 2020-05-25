@@ -32,7 +32,8 @@ namespace UtilityLog.View
             var dis = ObservableLogger
                 .Instance
                 .Messages
-                .Scan(new StringBuilder(), (sb, next) => sb.Append("[").Append(next.Item1.ToString()).Append("] ").AppendLine(next.message.ToString()))
+                .Scan(new StringBuilder(), (sb, next) =>
+                sb.Append("[").Append(next.level.ToString()).Append("] ").AppendLine(ToString(next.message)))
                 //.CombineLatest(ControlChanges.Select(a => a as TextBox).Where(a => a != null), (a, b) => (a, b))
                 .Subscribe(c =>
                 {
@@ -52,6 +53,9 @@ namespace UtilityLog.View
             this
                 .Log()
                 .Info($"{nameof(LogView)} Initialized.");
+
+            static string ToString(object message) =>
+                message is string ? message.ToString() : Newtonsoft.Json.JsonConvert.SerializeObject(message);
         }
     }
 }

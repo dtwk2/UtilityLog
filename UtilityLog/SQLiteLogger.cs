@@ -29,13 +29,14 @@ namespace UtilityLog
                     var (level, message, result, runCount) = c;
                     try
                     {
+                        var guid = Guid.NewGuid();
+
                         if (result == CreateTableResult.Created)
                             this.Log().Info($"Table {nameof(Log)} has been {result.ToString()}.");
                         if (message is string msg)
-                            await sqliteAsyncConnection.InsertAsync(new Log(msg, level, runCount));
+                            await sqliteAsyncConnection.InsertAsync(new Log(msg, level, runCount) { Key = guid });
                         if (message is Exception exception)
                         {
-                            var guid = Guid.NewGuid();
                             while (exception != null)
                             {
                                 await sqliteAsyncConnection.InsertAsync(new Log(exception, level, runCount) { Key = guid });
@@ -72,11 +73,11 @@ namespace UtilityLog
                     var (level, message) = c;
                     try
                     {
+                        var guid = Guid.NewGuid();
                         if (message is string msg)
-                            sqliteConnection.Insert(new Log(msg, level, runCount));
+                            sqliteConnection.Insert(new Log(msg, level, runCount) { Key = guid });
                         if (message is System.Exception exception)
                         {
-                            var guid = Guid.NewGuid();
                             while (exception != null)
                             {
                                 sqliteConnection.Insert(new Log(exception, level, runCount) { Key = guid });

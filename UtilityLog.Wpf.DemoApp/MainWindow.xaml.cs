@@ -4,6 +4,7 @@ using Splat;
 using System;
 using System.Reactive.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using static PeanutButter.RandomGenerators.RandomValueGen;
 
 namespace UtilityLog.Wpf.DemoApp
@@ -20,16 +21,20 @@ namespace UtilityLog.Wpf.DemoApp
             InitializeComponent();
 
             var command = ReactiveCommand.Create<object, object>(a => a);
-             this.SendException.Command = command;
+
+            (this.Resources["SendException"] as Button).Command = command;
+
+            var command2 = ReactiveCommand.Create<object, object>(a => a);
 
 
-                 
+            (this.Resources["SendUnhandledException"] as Button).Command = command2;
+
             SQLitePCL.Batteries.Init();
             var conn = UtilityDAL.Sqlite.ConnectionFactory.Create<Log>(path);
 
             _ = new SQLiteLogger(conn);
 
-            LogDbView1.Connection = conn;
+            (this.Resources["LogDbView1"] as View.LogDbView).Connection = conn;
 
             //this.Log().Info("Dfssfdd");
 
@@ -39,6 +44,8 @@ namespace UtilityLog.Wpf.DemoApp
             //_ = Observable.Interval(TimeSpan.FromSeconds(5)).StartWith(0).Subscribe(a => RandomMethod(GetRandomEmail(), GetRandomFileName(), GetRandomInt()));
 
             _ = command.Subscribe(ThrowException);
+
+            _ = command2.Subscribe(ThrowUnhandledException);
 
             //_ = Observable.Empty<long>().StartWith(0).Subscribe(a=>
             //{
@@ -58,8 +65,14 @@ namespace UtilityLog.Wpf.DemoApp
         static void ThrowException(object l)
         {
             throw new Exception("no exception - Method has LogAdviceAttribute");
+        }    
+        
+        static void ThrowUnhandledException(object l)
+        {
+            throw new Exception("no exception - this exception won't be caught straight-away");
         }
 
+        
         static long ThrowExceptionOnEvenNumber(long l)
         {
             if ((l % 2) == 1)
