@@ -31,8 +31,8 @@ namespace UtilityLog.View
         /// </summary>
         public static string Product => _product ?? (_product = AssemblyHelper.GetProductName());
 
-        static string _defaultTitle;
-        static string _product;
+        static string? _defaultTitle =null;
+        static string? _product = null;
 
         // Font sizes based on the "normal" size.
         //double _small;
@@ -81,7 +81,7 @@ namespace UtilityLog.View
             InitializeComponent();
             Initialize(headerMessage, e);
 
-            async void Initialize(string? headerMessage, object? e)
+            void Initialize(string? headerMessage, object? e)
             {
                 if (!_initialized)
                 {
@@ -114,7 +114,7 @@ namespace UtilityLog.View
         }
 
 
-        public static Brush DefaultPaneBrush { get; set; }
+        public static Brush? DefaultPaneBrush { get; set; }
 
         /// <summary>
         /// The default title to use for the ObjectView window.  Automatically initialized 

@@ -95,7 +95,7 @@
                               Style="{StaticResource DetailToggleButtonStyle}"
                               IsChecked="{Binding Path=ShowDetails, RelativeSource={RelativeSource AncestorType=UserControl}}" />-->      
                 <ToggleButton 
-                              Style="{StaticResource  MaterialDesignExpandCollapseToggleStyle}"
+                           
                               IsChecked="{Binding Path=ShowDetails, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal"

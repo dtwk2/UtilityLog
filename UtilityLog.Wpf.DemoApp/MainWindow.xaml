@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:UtilityLog.Wpf.DemoApp"
         xmlns:view="clr-namespace:UtilityLog.View;assembly=UtilityLog.View"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:controls="clr-namespace:Forge.Forms.Controls;assembly=Forge.Forms"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
@@ -15,33 +16,32 @@
             <Setter Property="Padding" Value="14"></Setter>
             <Setter Property="FontSize" Value="12"></Setter>
             <Setter Property="Margin" Value="10,0"></Setter>
-           
+
         </Style>
         <view:LogDbView x:Key="LogDbView1"></view:LogDbView>
         <Button x:Key="SendException" Style="{StaticResource ButtonStyle}" Content="send exception" ></Button>
         <Button x:Key="SendUnhandledException" Content="send unhandled exception"  Style="{StaticResource ButtonStyle}"></Button>
 
-        <materialDesign:DialogHost x:Key="DialogHost1">
-            
-  
-        <DockPanel >
-
+        <local:User x:Key="User1"></local:User>
+        <DockPanel x:Key="DockPanel">
             <ToolBar DockPanel.Dock="Top" FontWeight="DemiBold">
                 <StaticResource ResourceKey="SendException"></StaticResource>
                 <StaticResource ResourceKey="SendUnhandledException"></StaticResource>
+                <controls:DynamicForm Margin="16,16,16,8" Model="{StaticResource User1 }" Visibility="Collapsed"/>
             </ToolBar>
             <StaticResource ResourceKey="LogDbView1"></StaticResource>
         </DockPanel>
-        </materialDesign:DialogHost>
-    </Window.Resources>
-  
 
+
+    </Window.Resources>
+
+    <materialDesign:DialogHost x:Name="DialogHost1">
         <UniformGrid Columns="1">
             <view:MainView >
                 <view:MainView.MainContent>
-                <StaticResource ResourceKey="DialogHost1"></StaticResource>
-            </view:MainView.MainContent>
+                    <StaticResource ResourceKey="DockPanel"></StaticResource>
+                </view:MainView.MainContent>
             </view:MainView>
-      
         </UniformGrid>
+    </materialDesign:DialogHost>
 </Window>

@@ -12,7 +12,7 @@ namespace UtilityLog.Wpf.DemoApp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, Splat.IEnableLogger
+    public partial class MainWindow : Window, Splat.IEnableLogger, View.Infrastructure.IShowExceptionDialog
     {
         const string path = "../../../Data/Log.sqlite";
 
@@ -45,7 +45,10 @@ namespace UtilityLog.Wpf.DemoApp
 
             _ = command.Subscribe(ThrowException);
 
-            _ = command2.Subscribe(ThrowUnhandledException);
+            _ = command2.Subscribe(ThrowUnhandledException,a=>
+            {
+
+            });
 
             //_ = Observable.Empty<long>().StartWith(0).Subscribe(a=>
             //{
@@ -59,20 +62,23 @@ namespace UtilityLog.Wpf.DemoApp
         static double RandomMethod(string sdf, string afd, int sd)
         {
             return GetRandomDouble();
+
         }
 
         [ExceptionAdvice]
-        static void ThrowException(object l)
+        static async void ThrowException(object l)
         {
-            throw new Exception("no exception - Method has LogAdviceAttribute");
-        }    
-        
+            var val = await Forge.Forms.Show.Dialog().For(new Forge.Forms.Prompt<string> { Value = "no exception - method has LogAdviceAttribute", Title = "Throw exception?" });
+            if (val.Model.Confirmed)
+                throw new Exception(val.Model.Value);
+        }
+
         static void ThrowUnhandledException(object l)
         {
             throw new Exception("no exception - this exception won't be caught straight-away");
         }
 
-        
+
         static long ThrowExceptionOnEvenNumber(long l)
         {
             if ((l % 2) == 1)
@@ -86,6 +92,11 @@ namespace UtilityLog.Wpf.DemoApp
             //Bar(x * 2);
         }
 
+        public async System.Threading.Tasks.Task<bool> ShowExceptionDialog()
+        {
+            var x =  await Forge.Forms.Show.Dialog().For(new Forge.Forms.Confirmation("Close Application (or leave in unstable state)?", null, "YES", "NO"));
+            return x.Model.Confirmed;
+        }
     }
 
     //
