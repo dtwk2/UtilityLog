@@ -36,8 +36,8 @@
                                         <RotateTransform Angle="90"  ></RotateTransform>
                                     </TextBlock.LayoutTransform>
                                     <TextBlock.RenderTransform>
-    <ScaleTransform CenterX="0" CenterY="0" ScaleX="2" ScaleY="0" />
-  </TextBlock.RenderTransform>
+                                        <ScaleTransform CenterX="0" CenterY="0" ScaleX="2" ScaleY="0" />
+                                    </TextBlock.RenderTransform>
                                 </TextBlock>
                                 <!--<materialDesign:PackIcon Kind="ChevronUp" Width="24" Height="24"/>-->
                                 <TextBlock Text="Hide details" Margin="5,0" VerticalAlignment="Center"/>
@@ -48,7 +48,7 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    
+
     <Grid Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -93,10 +93,10 @@
                 <!--<ToggleButton Grid.Column="0" 
                               
                               Style="{StaticResource DetailToggleButtonStyle}"
-                              IsChecked="{Binding Path=ShowDetails, RelativeSource={RelativeSource AncestorType=UserControl}}" />-->      
-                <ToggleButton 
-                           
-                              IsChecked="{Binding Path=ShowDetails, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                              IsChecked="{Binding Path=ShowDetails, RelativeSource={RelativeSource AncestorType=UserControl}}" />-->
+                <!--<ToggleButton 
+                              Style="{StaticResource  MaterialDesignExpandCollapseToggleStyle}"
+                              IsChecked="{Binding Path=ShowDetails, RelativeSource={RelativeSource AncestorType=UserControl}}" />-->
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal"
                             HorizontalAlignment="Right">

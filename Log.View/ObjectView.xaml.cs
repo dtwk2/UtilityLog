@@ -31,7 +31,7 @@ namespace UtilityLog.View
         /// </summary>
         public static string Product => _product ?? (_product = AssemblyHelper.GetProductName());
 
-        static string? _defaultTitle =null;
+        static string? _defaultTitle = null;
         static string? _product = null;
 
         // Font sizes based on the "normal" size.

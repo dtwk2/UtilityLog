@@ -1,8 +1,10 @@
-﻿using Forge.Forms;
+﻿//using Forge.Forms;
+using ReactiveUI;
 using Splat;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reactive.Concurrency;
 using System.Reactive.Threading.Tasks;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,13 +60,13 @@ namespace UtilityLog.View.Infrastructure
 
             var message = "Unhandled exception occured.\n";
 
-   
-            var xx = showExceptionDialog.ShowExceptionDialog().ToObservable().Subscribe(a =>
+
+            var xx = showExceptionDialog.ShowExceptionDialog(e.Exception).ToObservable().Subscribe(a =>
             {
                 if (a)
                 {
                     this.Log().Error(e.Exception, "App will shutdown");
-                    Application.Current.Shutdown();
+                    RxApp.MainThreadScheduler.Schedule(() => Application.Current.Shutdown());
                 }
                 else
                 {

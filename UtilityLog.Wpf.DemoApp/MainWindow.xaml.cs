@@ -1,10 +1,12 @@
 ﻿using AspectInjector.Broker;
+using MaterialDesignThemes.Wpf;
 using ReactiveUI;
 using Splat;
 using System;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using static PeanutButter.RandomGenerators.RandomValueGen;
 
 namespace UtilityLog.Wpf.DemoApp
@@ -26,6 +28,11 @@ namespace UtilityLog.Wpf.DemoApp
 
             var command2 = ReactiveCommand.Create<object, object>(a => a);
 
+            command2.ThrownExceptions.Subscribe(a =>
+            {
+                command2 = ReactiveCommand.Create<object, object>(a => a);
+                command2.Subscribe(ThrowUnhandledException);
+            });
 
             (this.Resources["SendUnhandledException"] as Button).Command = command2;
 
@@ -45,10 +52,7 @@ namespace UtilityLog.Wpf.DemoApp
 
             _ = command.Subscribe(ThrowException);
 
-            _ = command2.Subscribe(ThrowUnhandledException,a=>
-            {
-
-            });
+            _ = command2.Subscribe(ThrowUnhandledException);
 
             //_ = Observable.Empty<long>().StartWith(0).Subscribe(a=>
             //{
@@ -68,9 +72,10 @@ namespace UtilityLog.Wpf.DemoApp
         [ExceptionAdvice]
         static async void ThrowException(object l)
         {
-            var val = await Forge.Forms.Show.Dialog().For(new Forge.Forms.Prompt<string> { Value = "no exception - method has LogAdviceAttribute", Title = "Throw exception?" });
-            if (val.Model.Confirmed)
-                throw new Exception(val.Model.Value);
+            string message = "Close Application (or leave in unstable state)?";
+
+            var result = await DialogHost.Show(new UtilityLog.View.ObjectView("asfdsd", l));
+
         }
 
         static void ThrowUnhandledException(object l)
@@ -92,10 +97,17 @@ namespace UtilityLog.Wpf.DemoApp
             //Bar(x * 2);
         }
 
-        public async System.Threading.Tasks.Task<bool> ShowExceptionDialog()
+        public async System.Threading.Tasks.Task<bool> ShowExceptionDialog(Exception exception)
         {
-            var x =  await Forge.Forms.Show.Dialog().For(new Forge.Forms.Confirmation("Close Application (or leave in unstable state)?", null, "YES", "NO"));
-            return x.Model.Confirmed;
+            string message = "Close Application (or leave in unstable state)?";
+        
+            var result = await DialogHost.Show(new View.ExceptionView(exception));
+            return (bool)result;
+        }
+
+        private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
+        {
+            
         }
     }
 

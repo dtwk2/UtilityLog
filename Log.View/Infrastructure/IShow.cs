@@ -6,6 +6,6 @@ namespace UtilityLog.View.Infrastructure
 {
     public interface IShowExceptionDialog
     {
-        System.Threading.Tasks.Task<bool> ShowExceptionDialog();
+        System.Threading.Tasks.Task<bool> ShowExceptionDialog(Exception exception);
     }
 }
