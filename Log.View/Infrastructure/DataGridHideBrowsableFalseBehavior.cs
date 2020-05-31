@@ -12,7 +12,6 @@ namespace UtilityLog.View.Infrastructure
 {
     public class DataGridCustomDataTemplateBehavior : Behavior<DataGrid>
     {
-        private ResourceDictionary resourceDictionary;
 
         protected override void OnAttached()
         {
@@ -29,9 +28,6 @@ namespace UtilityLog.View.Infrastructure
 
             }
         }
-
-
-
     }
 }
 

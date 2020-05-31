@@ -37,19 +37,4 @@ namespace UtilityLog.View.Infrastructure
 
 
     }
-
-    //public class LogLevelConverter : IValueConverter
-    //{
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        return Colors.Red;
-    //    }
-
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        return null;
-    //    }
-
-    //    public static LogLevelConverter Instance { get; } = new LogLevelConverter();
-    //}
 }

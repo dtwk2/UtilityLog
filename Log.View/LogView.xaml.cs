@@ -1,18 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Reactive.Linq;
-using System.Text;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Splat;
-using UtilityLog;
 
 namespace UtilityLog.View
 {
@@ -29,33 +20,65 @@ namespace UtilityLog.View
         {
             InitializeComponent();
 
-            var dis = ObservableLogger
+                   var lines = ObservableLogger
                 .Instance
                 .Messages
-                .Scan(new StringBuilder(), (sb, next) =>
-                sb.Append("[").Append(next.level.ToString()).Append("] ").AppendLine(ToString(next.message)))
-                //.CombineLatest(ControlChanges.Select(a => a as TextBox).Where(a => a != null), (a, b) => (a, b))
+                .SelectMany(Selector)
+                .Pace(TimeSpan.FromSeconds(0.5))
                 .Subscribe(c =>
                 {
                     this.Dispatcher.InvokeAsync(() =>
                     {
                         try
                         {
-                            logOutputTextBox.Text = c.ToString();
+                            logOutputTextBox.AppendText(c);
+                            //if (c.ToLower().Contains("[error]"))
+                            //    logOutputTextBox.BorderBrush = Brushes.Red;
+                            logOutputTextBox.ScrollToEnd();
+                            if (c.ToLower().Contains("[") == false && c.ToLower().Contains("]") == false)
+                                logOutputTextBox.AppendText("\n\r");
                         }
                         catch (Exception ex)
                         {
 
                         }
                     });
+
                 });
 
             this
                 .Log()
                 .Info($"{nameof(LogView)} Initialized.");
 
-            static string ToString(object message) =>
+            static string ConvertToString(object message) =>
                 message is string ? message.ToString() : Newtonsoft.Json.JsonConvert.SerializeObject(message);
+
+            static IEnumerable<string> Selector((LogLevel level, object message) next) =>
+                  (new string[] { "[" + next.level.ToString() + "]" })
+                  .Concat(ConvertToString(next.message)
+                  //.Replace("{", "")
+                  //.Replace("}", "")
+                        .Split(new[] { '\n', '\r' })
+                        .Where(c => string.IsNullOrEmpty(c) == false));
+
+        }
+
+    }
+
+    static class Helper
+    {
+
+        // James World
+        //http://www.zerobugbuild.com/?p=323
+        ///The events should be output at a maximum rate specified by a TimeSpan, but otherwise as soon as possible.
+        public static IObservable<T> Pace<T>(this IObservable<T> source, TimeSpan rate)
+        {
+            var paced = source.Select(i => Observable.Empty<T>()
+
+                                      .Delay(rate)
+                                      .StartWith(i)).Concat();
+
+            return paced;
         }
     }
 }

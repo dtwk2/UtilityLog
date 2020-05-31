@@ -37,7 +37,7 @@ namespace UtilityLog.View
         }
 
         // Using a DependencyProperty as the backing store for Json.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty JsonProperty = DependencyProperty.Register("Json", typeof(string), typeof(JsonView), new PropertyMetadata(null, JsonChanged));
+        public static readonly DependencyProperty JsonProperty = DependencyProperty.Register(nameof(Json), typeof(string), typeof(JsonView), new PropertyMetadata(null, JsonChanged));
 
         public object Object
         {
@@ -46,7 +46,7 @@ namespace UtilityLog.View
         }
 
         // Using a DependencyProperty as the backing store for Object.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ObjectProperty = DependencyProperty.Register("Object", typeof(object), typeof(JsonView), new PropertyMetadata(null, ObjectChanged));
+        public static readonly DependencyProperty ObjectProperty = DependencyProperty.Register(nameof(Object), typeof(object), typeof(JsonView), new PropertyMetadata(null, ObjectChanged));
 
         private static void ObjectChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -227,6 +227,7 @@ namespace UtilityLog.View
         //public IValueConverter JValueTypeToColorConverter() => Create<JValue, Color>(a => NiceColors.Value[(byte)a.Value.Type]);
 
     }
+
 
     internal static class TemplateSelector
     {

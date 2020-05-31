@@ -1,8 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+                    xmlns:local="clr-namespace:UtilityLog.View"
                     xmlns:conv="clr-namespace:UtilityLog.View.Infrastructure"
-                    xmlns:splat="clr-namespace:Splat;assembly=Splat">
+                    xmlns:splat="clr-namespace:Splat;assembly=Splat"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
     <DataTemplate DataType="{x:Type splat:LogLevel}">
         <!--<Ellipse Fill="Red" Width="20" Height="29"></Ellipse>-->
@@ -16,5 +17,12 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UtilityLog.View;component/Themes/MaterialDesignTheme.AppToolBar.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityLog.View;component/Themes/MaterialDesignTheme.Dragablz.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityLog.View;component/Themes/MainHost.xaml"/>
+        <ResourceDictionary Source="/UtilityLog.View;component/Themes/ConfirmationHost.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+
+
+
+
+
 </ResourceDictionary>

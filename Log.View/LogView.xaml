@@ -73,7 +73,7 @@
 
         <avalonedit:TextEditor 
                             x:Name="logOutputTextBox"
-                         FontFamily="Consolas,Courier New,Monospaced"
+            FontFamily="Consolas,Courier New,Monospaced"
                                FontSize="10pt"
                                IsReadOnly="True"
                                SnapsToDevicePixels="True"

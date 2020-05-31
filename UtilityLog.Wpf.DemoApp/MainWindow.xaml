@@ -15,31 +15,19 @@
             <Setter Property="Padding" Value="14"></Setter>
             <Setter Property="FontSize" Value="12"></Setter>
             <Setter Property="Margin" Value="10,0"></Setter>
-
         </Style>
-        <view:LogDbView x:Key="LogDbView1"></view:LogDbView>
-        <Button x:Key="SendException" Style="{StaticResource ButtonStyle}" Content="send exception" ></Button>
-        <Button x:Key="SendUnhandledException" Content="send unhandled exception"  Style="{StaticResource ButtonStyle}"></Button>
-
-        
-        <DockPanel x:Key="DockPanel">
-            <ToolBar DockPanel.Dock="Top" FontWeight="DemiBold">
-                <StaticResource ResourceKey="SendException"></StaticResource>
-                <StaticResource ResourceKey="SendUnhandledException"></StaticResource>
-            </ToolBar>
-            <StaticResource ResourceKey="LogDbView1"></StaticResource>
-        </DockPanel>
-
-
     </Window.Resources>
 
-    <materialDesign:DialogHost x:Name="DialogHost1">
-        <UniformGrid Columns="1">
-            <view:MainView >
-                <view:MainView.MainContent>
-                    <StaticResource ResourceKey="DockPanel"></StaticResource>
-                </view:MainView.MainContent>
-            </view:MainView>
-        </UniformGrid>
-    </materialDesign:DialogHost>
+
+    <view:MainHost x:Name="MainView" >
+        <DockPanel>
+            <ToolBar DockPanel.Dock="Top" FontWeight="DemiBold">
+                <Button x:Name="SendException" Style="{StaticResource ButtonStyle}" Content="send exception" ></Button>
+                <Button x:Name="SendUnhandledException" Content="send unhandled exception"  Style="{StaticResource ButtonStyle}"></Button>
+            </ToolBar>
+            <view:LogDbView x:Name="LogDbView1"></view:LogDbView>
+        </DockPanel>
+    </view:MainHost>
+
+
 </Window>

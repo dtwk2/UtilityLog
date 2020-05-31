@@ -12,7 +12,7 @@ namespace UtilityLog
 
         private ObservableLogger()
         {
-            this.messages = Subject.Synchronize(new ReplaySubject<(LogLevel level, object message)>(100));
+            this.messages = Subject.Synchronize(new ReplaySubject<(LogLevel level, object message)>());
         }
 
         public IObservable<(LogLevel level, object message)> Messages => this.messages;

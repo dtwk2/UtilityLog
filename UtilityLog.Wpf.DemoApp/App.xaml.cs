@@ -13,47 +13,36 @@ namespace UtilityLog.Wpf.DemoApp
 
         public App()
         {
+
+            SQLitePCL.Batteries.Init();
+
             // Need to include this line to make logging work
             // https://reactiveui.net/docs/handbook/logging/
 
             Locator.CurrentMutable.RegisterConstant(ObservableLogger.Instance, typeof(ILogger));
+            Locator.CurrentMutable.RegisterConstant(new CombinedLogger(ObservableLogger.Instance,new UtilityLog.ConsoleLogger()), typeof(ILogger));
+            Locator.CurrentMutable.RegisterConstant(CreateDefault(), Constants.LogConnection);
 
             new UIFreezeObserver().Observe();
 
-
         }
-
 
         protected override void OnStartup(StartupEventArgs e)
         {
             MainWindow window = new MainWindow();
             window.Show();
-            _ = new GlobalExceptionHandler(window);
+            _ = new GlobalExceptionHandler(window.MainView);
 
         }
 
 
-
-
-        //public static void ShowError(Exception exception, string message, string caption = "")
-        //{
-        //    var exceptionViewer = new object();// new ExceptionViewer(message, exception);
-        //    var baseDialogWindow = new DialogWindow
-        //    {
-        //        Title = string.IsNullOrEmpty(caption) ? "Error" : caption,
-        //        Content = exceptionViewer,
-        //        WindowStartupLocation = WindowStartupLocation.CenterScreen,
-        //        ResizeMode = ResizeMode.CanResizeWithGrip,
-        //        MinHeight = 400,
-        //        MinWidth = 500,
-        //        ShowMinButton = false,
-        //        ShowMaxRestoreButton = false,
-        //        ShowInTaskbar = false
-        //    };
-        //    baseDialogWindow.ShowDialog();
-
-        //    // MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Error);
-        //}
+        static SQLite.SQLiteConnection CreateDefault()
+        {
+            const string path = "../../../Data/Log.sqlite";
+            var conn = UtilityDAL.Sqlite.ConnectionFactory.Create<Log>(path);
+            _ = new SQLiteLogger(conn);
+            return conn;
+        }
     }
 }
 

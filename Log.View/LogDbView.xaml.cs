@@ -20,12 +20,12 @@ namespace UtilityLog.View
     public partial class LogDbView : UserControl
     {
 
-        public static readonly DependencyProperty ConnectionProperty = DependencyProperty.Register("Connection", typeof(SQLiteConnection), typeof(LogDbView), new PropertyMetadata(null, Changed));
+        public static readonly DependencyProperty ConnectionProperty = DependencyProperty.Register(nameof(Connection), typeof(SQLiteConnection), typeof(LogDbView), new PropertyMetadata(null, Changed));
 
         public LogDbView()
         {
             InitializeComponent();
-            this.Loaded += (s,_) => this.SetItemsSource(Connection); ;
+            this.Loaded += (s, _) => this.SetItemsSource(Connection); ;
         }
 
         public SQLiteConnection Connection
@@ -36,7 +36,7 @@ namespace UtilityLog.View
 
         private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if(d is LogDbView logDbView && e.NewValue is SQLiteConnection conn)
+            if (d is LogDbView logDbView && e.NewValue is SQLiteConnection conn)
             {
                 logDbView.SetItemsSource(conn);
             }
@@ -44,9 +44,10 @@ namespace UtilityLog.View
 
         private void SetItemsSource(SQLiteConnection conn)
         {
-            this.DataGrid1.ItemsSource = Connection?.Table<Log>().ToArray();
+            conn ??= Splat.Locator.Current.GetService(typeof(SQLiteConnection), nameof(Constants.LogConnection)) as SQLiteConnection;
+            this.DataGrid1.ItemsSource = conn?.Table<Log>().ToArray();
         }
 
-      
+
     }
 }

@@ -5,76 +5,58 @@ using Splat;
 using System;
 using System.Reactive.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using static PeanutButter.RandomGenerators.RandomValueGen;
 
 namespace UtilityLog.Wpf.DemoApp
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, Splat.IEnableLogger, View.Infrastructure.IShowExceptionDialog
+    public partial class MainWindow : Window, IEnableLogger
     {
-        const string path = "../../../Data/Log.sqlite";
-
+        static Random random = new Random();
         public MainWindow()
         {
             InitializeComponent();
 
             var command = ReactiveCommand.Create<object, object>(a => a);
-
-            (this.Resources["SendException"] as Button).Command = command;
+            _ = command.Subscribe(ThrowException);
+            SendException.Command = command;
 
             var command2 = ReactiveCommand.Create<object, object>(a => a);
-
+            _ = command2.Subscribe(ThrowUnhandledException);
             command2.ThrownExceptions.Subscribe(a =>
             {
                 command2 = ReactiveCommand.Create<object, object>(a => a);
                 command2.Subscribe(ThrowUnhandledException);
             });
 
-            (this.Resources["SendUnhandledException"] as Button).Command = command2;
+            SendUnhandledException.Command = command2;
 
-            SQLitePCL.Batteries.Init();
-            var conn = UtilityDAL.Sqlite.ConnectionFactory.Create<Log>(path);
-
-            _ = new SQLiteLogger(conn);
-
-            (this.Resources["LogDbView1"] as View.LogDbView).Connection = conn;
-
-            //this.Log().Info("Dfssfdd");
+            this.Log().Info("MainWindow Initialized");
 
 
-            //_ = Observable.Interval(TimeSpan.FromSeconds(3)).StartWith(0).Select(ThrowExceptionOnEvenNumber).LoggedCatch(this, Observable.Return(0L)).Subscribe();
 
-            //_ = Observable.Interval(TimeSpan.FromSeconds(5)).StartWith(0).Subscribe(a => RandomMethod(GetRandomEmail(), GetRandomFileName(), GetRandomInt()));
+            _ = Observable.Interval(TimeSpan.FromSeconds(3)).StartWith(0).Select(ThrowExceptionOnEvenNumber)
+                .LoggedCatch(this, Observable.Return(0L)).Subscribe();
 
-            _ = command.Subscribe(ThrowException);
-
-            _ = command2.Subscribe(ThrowUnhandledException);
-
-            //_ = Observable.Empty<long>().StartWith(0).Subscribe(a=>
-            //{
-            //    throw new Exception("no exception");
-            //});
+            _ = Observable.Interval(TimeSpan.FromSeconds(5)).StartWith(0)
+            .Subscribe(a => RandomMethod());
 
         }
 
 
         [LogAdvice]
-        static double RandomMethod(string sdf, string afd, int sd)
+        static double RandomMethod()
         {
-            return GetRandomDouble();
-
+            return random.NextDouble();
         }
 
         [ExceptionAdvice]
         static async void ThrowException(object l)
         {
-            string message = "Close Application (or leave in unstable state)?";
+            string message = "Exception thrown delibrately";
 
-            var result = await DialogHost.Show(new UtilityLog.View.ObjectView("asfdsd", l));
+            var result = await DialogHost.Show(new View.ConfirmationHost(message));
 
         }
 
@@ -96,22 +78,9 @@ namespace UtilityLog.Wpf.DemoApp
         {
             //Bar(x * 2);
         }
-
-        public async System.Threading.Tasks.Task<bool> ShowExceptionDialog(Exception exception)
-        {
-            string message = "Close Application (or leave in unstable state)?";
-        
-            var result = await DialogHost.Show(new View.ExceptionView(exception));
-            return (bool)result;
-        }
-
-        private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
-        {
-            
-        }
     }
 
-    //
+    // AspectInjector
     [Aspect(Scope.Global)]
     [Injection(typeof(LogCall))]
     public class LogCall : Attribute
