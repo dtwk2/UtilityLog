@@ -17,7 +17,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UtilityLog.View;component/Themes/MaterialDesignTheme.AppToolBar.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityLog.View;component/Themes/MaterialDesignTheme.Dragablz.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityLog.View;component/Themes/MainHost.xaml"/>
+        <ResourceDictionary Source="/UtilityLog.View;component/Themes/LogHost.xaml"/>
         <ResourceDictionary Source="/UtilityLog.View;component/Themes/ConfirmationHost.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 

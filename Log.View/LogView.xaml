@@ -45,31 +45,54 @@
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </DockPanel.Resources>
-        <ItemsControl DockPanel.Dock="Top" ToolBarTray.IsLocked="True" Padding="15,0" 
+        <Grid DockPanel.Dock="Top">
+            <ItemsControl DockPanel.Dock="Top" ToolBarTray.IsLocked="True" Padding="15,0" 
                                 Style="{StaticResource ToolDockPanelCompact}">
-            <!--<StackPanel Orientation="Horizontal">
+                <!--<StackPanel Orientation="Horizontal">
                     <TextBlock Text="Show output from: " VerticalAlignment="Center" Margin="0,0,2,0"/>
                     <ComboBox x:Name="OutputSource" DisplayMemberPath="Value" SelectedValuePath="Key" 
                           SelectedValue="{Binding SelectedOutputSource, Mode=TwoWay}"
                           VerticalAlignment="Center" MinWidth="160"/>
                 </StackPanel>-->
-            <Separator/>
-            <Button ToolTip="Clear All" x:Name="clearAll"
+
+                <Button ToolTip="Clear All" x:Name="clearAll"   
+                        Command="{Binding ClearAllCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                  Padding="0">
-                <materialDesign:PackIcon Kind="PlaylistRemove" Height="24" Width="24"/>
-            </Button>
-            <Separator/>
-            <ToggleButton x:Name="toggleWordWrap">
+                    <materialDesign:PackIcon Kind="PlaylistRemove" Height="24" Width="24"/>
+                </Button>
+                <Separator/>
+                <!--<ToggleButton x:Name="toggleWordWrap">
                 <materialDesign:PackIcon Kind="Wrap" />
-            </ToggleButton>
-            <Button Style="{StaticResource MaterialDesignCloseItemCommandButtonStyle}"
-                                            Command="{x:Static infra:RoutedCommands.ShowToolsPanel}"                                             >
-                <Button.CommandParameter>
-                    <sys:Boolean>False</sys:Boolean>
-                </Button.CommandParameter>
-            </Button>
-            <Border />
-        </ItemsControl>
+            </ToggleButton>-->
+
+                <ToggleButton
+                HorizontalAlignment="Left"
+                x:Name="PlayPause1"
+               
+                Command="{Binding Path=ScrollCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}"
+                ToolTip="Play Pause Scrolling">
+                    <ToggleButton.Content>
+                        <materialDesign:PackIcon
+                        Kind="Pause" />
+                    </ToggleButton.Content>
+                    <materialDesign:ToggleButtonAssist.OnContent>
+                        <materialDesign:PackIcon
+                        Kind="Play" />
+                    </materialDesign:ToggleButtonAssist.OnContent>
+                </ToggleButton>
+          
+            </ItemsControl>
+             <Button Style="{StaticResource MaterialDesignCloseItemCommandButtonStyle}"
+                     Margin="20"
+                                            Command="{x:Static infra:RoutedCommands.ShowLogPanel}"    
+                    HorizontalAlignment="Right">
+                    <Button.CommandParameter>
+                        <sys:Boolean>False</sys:Boolean>
+                    </Button.CommandParameter>
+                </Button>
+        </Grid>
+       
 
         <avalonedit:TextEditor 
                             x:Name="logOutputTextBox"

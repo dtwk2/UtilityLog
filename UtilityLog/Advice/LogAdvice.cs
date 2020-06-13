@@ -1,12 +1,14 @@
 ﻿using System;
-using System.ComponentModel;
 using ArxOne.MrAdvice.Advice;
 using Newtonsoft.Json.Linq;
 using Splat;
 
 namespace UtilityLog
 {
-    [Description("Need to inclide MrAdvice in main project for this to work.")]
+    /// <summary>
+    /// Aspect that, when applied on a method, logs details,
+    /// </summary>
+#warning "Need to include MrAdvice library in main project for 'Advise' method invocation."
     public class LogAdvice : Attribute, IMethodAdvice, IEnableLogger
     {
         public void Advise(MethodAdviceContext context)

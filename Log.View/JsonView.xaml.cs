@@ -25,6 +25,10 @@ namespace UtilityLog.View
     {
         private const GeneratorStatus Generated = GeneratorStatus.ContainersGenerated;
 
+        public static readonly DependencyProperty JsonProperty = DependencyProperty.Register(nameof(Json), typeof(string), typeof(JsonView), new PropertyMetadata(null, JsonChanged));
+
+        public static readonly DependencyProperty ObjectProperty = DependencyProperty.Register(nameof(Object), typeof(object), typeof(JsonView), new PropertyMetadata(null, ObjectChanged));
+
         public JsonView()
         {
             InitializeComponent();
@@ -36,17 +40,12 @@ namespace UtilityLog.View
             set { SetValue(JsonProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Json.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty JsonProperty = DependencyProperty.Register(nameof(Json), typeof(string), typeof(JsonView), new PropertyMetadata(null, JsonChanged));
-
         public object Object
         {
             get { return (object)GetValue(ObjectProperty); }
             set { SetValue(ObjectProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Object.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ObjectProperty = DependencyProperty.Register(nameof(Object), typeof(object), typeof(JsonView), new PropertyMetadata(null, ObjectChanged));
 
         private static void ObjectChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -204,27 +203,9 @@ namespace UtilityLog.View
         public static IValueConverter JTokenConverter => Create<object, string>(jval => jval.Value switch
         {
             JValue value when value.Type == JTokenType.Null => "null",
-            JValue value => value.Value.ToString() ?? string.Empty,
+            JValue value => value?.Value?.ToString() ?? string.Empty,
             _ => jval.Value.ToString() ?? string.Empty
         });
-
-        //public static IValueConverter JTokenConverter => Create<object,string>(jvalValue =>
-        //{
-        //    var value = jvalValue.Value;
-
-        //    if (value is JValue jval)
-        //    {
-        //        return jval.Type switch
-        //        {
-        //            JTokenType.Null => "null",
-        //            _ => jval.Value?.ToString()?? string.Empty
-        //        };
-        //    }
-
-        //    return value?.ToString() ?? string.Empty;
-        //});
-
-        //public IValueConverter JValueTypeToColorConverter() => Create<JValue, Color>(a => NiceColors.Value[(byte)a.Value.Type]);
 
     }
 

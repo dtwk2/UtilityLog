@@ -19,7 +19,7 @@
     </Window.Resources>
 
 
-    <view:MainHost x:Name="MainView" >
+    <view:LogHost x:Name="MainView" >
         <DockPanel>
             <ToolBar DockPanel.Dock="Top" FontWeight="DemiBold">
                 <Button x:Name="SendException" Style="{StaticResource ButtonStyle}" Content="send exception" ></Button>
@@ -27,7 +27,7 @@
             </ToolBar>
             <view:LogDbView x:Name="LogDbView1"></view:LogDbView>
         </DockPanel>
-    </view:MainHost>
+    </view:LogHost>
 
 
 </Window>

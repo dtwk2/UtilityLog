@@ -2,11 +2,9 @@
 using ReactiveUI;
 using Splat;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reactive.Concurrency;
 using System.Reactive.Threading.Tasks;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
@@ -35,7 +33,7 @@ namespace UtilityLog.View.Infrastructure
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
-            this.Log().Error(e);
+            this.Log().Error(e.Exception);
 
         }
 
@@ -49,6 +47,7 @@ namespace UtilityLog.View.Infrastructure
             if (e.IsTerminating)
             {
                 message += "\nApplication will shutdown.\n";
+                this.Log().Info(e.ExceptionObject as Exception, message);
                 Process.GetCurrentProcess().Kill();
             }
         }
@@ -58,20 +57,20 @@ namespace UtilityLog.View.Infrastructure
         {
             this.Log().Error(e.Exception, "An unhandled exception occurred");
 
-            var message = "Unhandled exception occured.\n";
-
-
-            var xx = showExceptionDialog.ShowExceptionDialog(e.Exception).ToObservable().Subscribe(a =>
+            IDisposable disposable = null;
+            disposable = showExceptionDialog.ShowExceptionDialog(e.Exception).ToObservable().Subscribe(a =>
             {
+                this.Log().Error(e.Exception, "App will " + (a ? string.Empty : "not") + " shutdown");
+                
                 if (a)
                 {
-                    this.Log().Error(e.Exception, "App will shutdown");
                     RxApp.MainThreadScheduler.Schedule(() => Application.Current.Shutdown());
                 }
                 else
                 {
-                    this.Log().Error(e.Exception, "App will not shutdown");
+                    MessageBus.Current.SendMessage(Validity.Invalid);
                 }
+                disposable?.Dispose();
             });
 
             e.Handled = true;

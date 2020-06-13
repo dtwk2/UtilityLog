@@ -5,8 +5,9 @@ using Splat;
 namespace UtilityLog
 {
     /// <summary>
-    /// Aspect that, when applied on a method, catches all its exceptions,
+    /// Aspect that, when applied on a method, catches all its exceptions, and logs details,
     /// </summary>
+#warning "Need to include MrAdvice library in main project for 'Advise' method invocation."
     public class ExceptionAdvice : Attribute, IMethodAdvice, IEnableLogger
     {
         /// <summary>

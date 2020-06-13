@@ -1,8 +1,5 @@
 ﻿using LambdaConverters;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -11,6 +8,9 @@ namespace UtilityLog.View.Infrastructure
 {
     internal static class Converter
     {
+        public static readonly IValueConverter VisibilityToBoolean =
+       ValueConverter.Create<Visibility,bool>(e => e.Value== Visibility.Visible);
+
         public static readonly IValueConverter VisibleIfTrue =
             ValueConverter.Create<bool, Visibility>(e => e.Value ? Visibility.Visible : Visibility.Collapsed);
 

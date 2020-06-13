@@ -11,10 +11,10 @@ namespace UtilityLog.View.Infrastructure
     public static class RoutedCommands
     {
 
-        public static readonly RoutedUICommand ShowToolsPanel = new RoutedUICommand
+        public static readonly RoutedUICommand ShowLogPanel = new RoutedUICommand
         (
             "Show Log",
-            nameof(ShowToolsPanel),
+            nameof(ShowLogPanel),
             typeof(RoutedCommands),
             new InputGestureCollection
             {

@@ -1,0 +1,79 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:UtilityLog.View"
+                    xmlns:infra="clr-namespace:UtilityLog.View.Infrastructure"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+
+    <Style TargetType="{x:Type local:LogHost }" BasedOn="{StaticResource {x:Type ContentControl}}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:LogHost }">
+                    <Border   BorderThickness="3"     x:Name="Border1"                      >
+                        <Border.BorderBrush>
+                            <SolidColorBrush x:Name="borderBrush" Color="Gainsboro"/>
+                        </Border.BorderBrush>
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="ValidStates">
+                                <VisualState Name="Valid">
+                                    <Storyboard>
+                                        <ColorAnimation To="Gainsboro" 
+                          Storyboard.TargetName="borderBrush" 
+                          Storyboard.TargetProperty="Color"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState Name="Invalid" >
+                                    <Storyboard>
+                                        <ColorAnimation To="Red" 
+                          Storyboard.TargetName="borderBrush" 
+                          Storyboard.TargetProperty="Color"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition To="Valid" GeneratedDuration="00:00:05">
+                                        <VisualTransition.GeneratedEasingFunction>
+                                            <ExponentialEase EasingMode="EaseOut" Exponent="10"/>
+                                        </VisualTransition.GeneratedEasingFunction>
+                                    </VisualTransition>
+
+                                    <VisualTransition To="Invalid" GeneratedDuration="00:00:00.5">
+                                        <VisualTransition.GeneratedEasingFunction>
+                                            <ExponentialEase EasingMode="EaseOut" Exponent="10"/>
+                                        </VisualTransition.GeneratedEasingFunction>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <materialDesign:DialogHost x:Name="DialogHost1">
+
+                            <DockPanel LastChildFill="True">
+                                <Menu DockPanel.Dock="Top">
+                                    <MenuItem Command="{x:Static infra:RoutedCommands.ShowLogPanel}"    
+                                          x:Name="MenuItem1"
+                                          IsCheckable="True"  
+                                 
+                                            CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}">
+                                        <MenuItem.Icon>
+                                            <materialDesign:PackIcon Kind="ConsoleLine" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </Menu>
+
+                                <local:LogView x:Name="LogView1" DockPanel.Dock="Bottom" MaxHeight="300"/>
+
+
+
+
+                                <ContentPresenter Content="{TemplateBinding Content}"
+                                          Margin="{TemplateBinding Padding}"/>
+
+                            </DockPanel>
+                        </materialDesign:DialogHost>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

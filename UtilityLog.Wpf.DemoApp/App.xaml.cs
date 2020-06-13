@@ -18,9 +18,7 @@ namespace UtilityLog.Wpf.DemoApp
 
             // Need to include this line to make logging work
             // https://reactiveui.net/docs/handbook/logging/
-
             Locator.CurrentMutable.RegisterConstant(ObservableLogger.Instance, typeof(ILogger));
-            Locator.CurrentMutable.RegisterConstant(new CombinedLogger(ObservableLogger.Instance,new UtilityLog.ConsoleLogger()), typeof(ILogger));
             Locator.CurrentMutable.RegisterConstant(CreateDefault(), Constants.LogConnection);
 
             new UIFreezeObserver().Observe();
