@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityLog", "UtilityLog\UtilityLog.csproj", "{906201DD-EDC6-49AD-A0E9-C3B4CD045C0F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityLog.View", "Log.View\UtilityLog.View.csproj", "{B778B64A-E3A6-44F5-ADD1-777E38033569}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityLog.View", "UtilityLog.View\UtilityLog.View.csproj", "{B778B64A-E3A6-44F5-ADD1-777E38033569}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityLog.Demo", "UtilityLog.Wpf.DemoApp\UtilityLog.Demo.csproj", "{179E2482-ED94-4E22-98F7-BE7162874B98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityLog.Demo", "UtilityLog.Demo\UtilityLog.Demo.csproj", "{179E2482-ED94-4E22-98F7-BE7162874B98}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{A5A5EA91-86BB-44A5-A88B-3463035BB2AC}"
 EndProject
