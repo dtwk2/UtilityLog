@@ -2,6 +2,7 @@
 using System;
 using System.Windows;
 using UtilityLog.View.Infrastructure;
+using UtilityLog.Wpf.DemoApp.Utility;
 
 namespace UtilityLog.Wpf.DemoApp
 {
@@ -37,7 +38,7 @@ namespace UtilityLog.Wpf.DemoApp
         static SQLite.SQLiteConnection CreateDefault()
         {
             const string path = "../../../Data/Log.sqlite";
-            var conn = UtilityDAL.Sqlite.ConnectionFactory.Create<Log>(path);
+            var conn = ConnectionFactory.Create<Log>(path);
             _ = new SQLiteLogger(conn);
             return conn;
         }
