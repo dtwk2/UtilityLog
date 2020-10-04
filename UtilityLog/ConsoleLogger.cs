@@ -11,13 +11,11 @@ namespace UtilityLog
     /// <summary>
     /// A logger which will send messages to the console.
     /// </summary>
-    public class ConsoleLogger : IEnableLogger
+    public class ConsoleLogger : ObservableLogger
     {
         public ConsoleLogger()
         {
-            _ = ObservableLogger
-              .Instance
-              .Messages
+            _ = Messages
           .Subscribe(a =>
           {
               var (ad, c) = a;

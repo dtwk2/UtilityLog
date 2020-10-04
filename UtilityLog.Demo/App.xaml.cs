@@ -17,13 +17,18 @@ namespace UtilityLog.Wpf.DemoApp
 
             SQLitePCL.Batteries.Init();
 
-            // Need to include this line to make logging work
-            // https://reactiveui.net/docs/handbook/logging/
-            Locator.CurrentMutable.RegisterConstant(ObservableLogger.Instance, typeof(ILogger));
-            Locator.CurrentMutable.RegisterConstant(CreateDefault(), Constants.LogConnection);
+            Register();
 
             new UIFreezeObserver().Observe();
 
+        }
+
+        static void Register()
+        {
+            Locator.CurrentMutable.RegisterConstant(CreateDefault(), Constants.LogConnection);
+            var sqliteLogger = new SQLiteLogger(Locator.Current.GetService<SQLite.SQLiteConnection>(Constants.LogConnection));
+            Locator.CurrentMutable.RegisterConstant<ILogger>(sqliteLogger);
+            Locator.CurrentMutable.RegisterConstant<IObservableLogger>(sqliteLogger);
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -39,7 +44,6 @@ namespace UtilityLog.Wpf.DemoApp
         {
             const string path = "../../../Data/Log.sqlite";
             var conn = ConnectionFactory.Create<Log>(path);
-            _ = new SQLiteLogger(conn);
             return conn;
         }
     }

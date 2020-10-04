@@ -7,7 +7,6 @@ using Splat;
 using System.Windows.Input;
 using System.Windows;
 using System.Reactive;
-using System.Linq.Expressions;
 
 namespace UtilityLog.View
 {
@@ -31,8 +30,7 @@ namespace UtilityLog.View
             InitializeComponent();
             var scrollCommand = ReactiveUI.ReactiveCommand.Create<bool?, bool>(a => !(a ?? false));
             var clearAllCommand = ReactiveUI.ReactiveCommand.Create<Unit, Guid>(a => Guid.NewGuid());
-            var lines = ObservableLogger
-         .Instance
+            var lines = Locator.Current.GetService<IObservableLogger>()
          .Messages
          .SelectMany(Selector)
          .Pace(TimeSpan.FromSeconds(0.5))

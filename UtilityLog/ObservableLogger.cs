@@ -5,12 +5,12 @@ using Splat;
 
 namespace UtilityLog
 {
-    public sealed class ObservableLogger : ILogger
+    public class ObservableLogger : ILogger, IObservableLogger
     {
-        public static readonly ObservableLogger Instance = new ObservableLogger();
+        //public static readonly ObservableLogger Instance = new ObservableLogger();
         private readonly ISubject<(LogLevel level, object message), (LogLevel level, object message)> messages;
 
-        private ObservableLogger()
+        protected ObservableLogger()
         {
             this.messages = Subject.Synchronize(new ReplaySubject<(LogLevel level, object message)>());
         }

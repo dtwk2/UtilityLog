@@ -8,7 +8,7 @@ using SQLite;
 
 namespace UtilityLog
 {
-    public class SQLiteLogger : IEnableLogger
+    public class SQLiteLogger : ObservableLogger
     {
         private static readonly string statement = $"SELECT MAX({nameof(Log.RunCount)}) as {nameof(Runcount.Value)} FROM {nameof(Log)}";
 
@@ -20,9 +20,7 @@ namespace UtilityLog
             var obs = sqliteAsyncConnection.CreateTableAsync<Log>()
                 .ToObservable();
 
-            _ = ObservableLogger
-                .Instance
-                .Messages
+            _ = Messages
                 .CombineLatest(obs, RunCount(sqliteAsyncConnection, obs), (a, b, c) => (a.level, a.message, b, c))
                 .Subscribe(async c =>
                 {
@@ -32,7 +30,7 @@ namespace UtilityLog
                         var guid = Guid.NewGuid();
 
                         if (result == CreateTableResult.Created)
-                            this.Log().Info($"Table {nameof(Log)} has been {result.ToString()}.");
+                            this.Write($"Table {nameof(Log)} has been {result}.", LogLevel.Info);
                         if (message is string msg)
                             await sqliteAsyncConnection.InsertAsync(new Log(msg, level, runCount) { Key = guid });
                         if (message is Exception exception)
@@ -54,9 +52,7 @@ namespace UtilityLog
                 });
 
 
-            this
-                .Log()
-                .Info($"{nameof(SQLiteLogger)} Initialized.");
+            this.Write($"{nameof(SQLiteLogger)} Initialized.", LogLevel.Info);
         }
 
         public SQLiteLogger(SQLiteConnection sqliteConnection)
@@ -65,9 +61,7 @@ namespace UtilityLog
 
             var runCount = RunCount(sqliteConnection);
 
-            _ = ObservableLogger
-                .Instance
-                .Messages
+            _ = Messages
                 .Subscribe(c =>
                 {
                     var (level, message) = c;
@@ -94,9 +88,7 @@ namespace UtilityLog
                     }
                 });
 
-            this
-                .Log()
-                .Info($"{nameof(SQLiteLogger)} Initialized.");
+            this.Write($"{nameof(SQLiteLogger)} Initialized.", LogLevel.Info);
         }
 
         public IObservable<Unit> IsInitialised => isInitialised;
