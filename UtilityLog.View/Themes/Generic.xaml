@@ -2,17 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UtilityLog.View"
                     xmlns:conv="clr-namespace:UtilityLog.View.Infrastructure"
-                    xmlns:splat="clr-namespace:Splat;assembly=Splat"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-    <DataTemplate DataType="{x:Type splat:LogLevel}">
-        <!--<Ellipse Fill="Red" Width="20" Height="29"></Ellipse>-->
-        <TextBlock Text="{Binding Level}" >
-            <TextBlock.Foreground>
-                <SolidColorBrush Color="{Binding Level,Converter={x:Static conv:Converter.LogLevelConverter}}"></SolidColorBrush>
-            </TextBlock.Foreground>
-        </TextBlock>
-    </DataTemplate>
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UtilityLog.View;component/Themes/MaterialDesignTheme.AppToolBar.xaml"></ResourceDictionary>
@@ -20,9 +11,5 @@
         <ResourceDictionary Source="/UtilityLog.View;component/Themes/LogHost.xaml"/>
         <ResourceDictionary Source="/UtilityLog.View;component/Themes/ConfirmationHost.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-
-
-
-
 
 </ResourceDictionary>

@@ -1,18 +1,22 @@
 ﻿using Microsoft.Xaml.Behaviors;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
 
 namespace UtilityLog.View.Infrastructure
 {
-    public class DataGridHideBrowsableFalseBehavior : Behavior<DataGrid>
+    public class DataGridCustomDataTemplateBehavior : Behavior<DataGrid>
     {
-        private ResourceDictionary resourceDictionary;
+        public static readonly DependencyProperty DataTemplateProperty =
+            DependencyProperty.Register("DataTemplate", typeof(DataTemplate), typeof(DataGridCustomDataTemplateBehavior), new PropertyMetadata(null));
+
+        public DataTemplate DataTemplate
+        {
+            get { return (DataTemplate)GetValue(DataTemplateProperty); }
+            set { SetValue(DataTemplateProperty, value); }
+        }
+
 
         protected override void OnAttached()
         {
@@ -24,21 +28,16 @@ namespace UtilityLog.View.Infrastructure
         {
             if (e.PropertyDescriptor is PropertyDescriptor propertyDescriptor)
             {
-
-
                 if (propertyDescriptor.PropertyType.IsEnum)
                 {
-                    resourceDictionary ??= (ResourceDictionary)Application.LoadComponent(new Uri("/UtilityLog.View;component/Themes/Generic.xaml", UriKind.Relative));
-                    var template = resourceDictionary.Values.OfType<DataTemplate>().Single(a => a.DataType.Equals(typeof(Splat.LogLevel)));
+                   
                     var column = new DataGridTemplateColumn()
                     {
-                        CellTemplate = template,
+                        CellTemplate = DataTemplate,
                     };
                     e.Column = column;
                 }
                 // e.Column.Header = descriptor.DisplayName ?? descriptor.Name;
-
-
             }
         }
     }

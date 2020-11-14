@@ -1,16 +1,11 @@
 ﻿using Microsoft.Xaml.Behaviors;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Windows;
 using System.Windows.Controls;
 
 
 namespace UtilityLog.View.Infrastructure
 {
-    public class DataGridCustomDataTemplateBehavior : Behavior<DataGrid>
+    public class DataGridHideBrowsableFalseBehavior : Behavior<DataGrid>
     {
 
         protected override void OnAttached()
