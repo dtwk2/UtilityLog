@@ -1,0 +1,35 @@
+﻿<Window
+    x:Class="Pcs.Hfrr.Log.View.LogWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Pcs.Hfrr.Log.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    Title="LogWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+
+
+    
+    <TabControl
+        Style="{DynamicResource MaterialDesignTabControl}"
+        x:Name="RadTabControl"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
+
+        <TabItem Header="output text">
+            <local:LogView x:Name="LogView" />
+        </TabItem>
+
+        <TabItem Header="current">
+            <local:LogGridView x:Name="LogGridUserControl" />
+        </TabItem>
+
+        <TabItem Header="historical">
+            <local:LogDatabaseView x:Name="LogDbView" />
+        </TabItem>
+    </TabControl>
+
+</Window>

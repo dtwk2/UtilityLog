@@ -1,0 +1,65 @@
+﻿<UserControl
+    x:Class="Pcs.Hfrr.Log.View.LogDatabaseView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:infra="clr-namespace:Pcs.Hfrr.Log.View.Infrastructure"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:Pcs.Hfrr.Log.View"
+    xmlns:controls="clr-namespace:Utility.Log.View.Controls"
+    xmlns:controls21="clr-namespace:Utility.Controls;assembly=Utility.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type DataGridRow}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Converter={x:Static infra:Converter.ModConverter}}" Value="True">
+                    <Setter Property="Background" Value="GhostWhite" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
+    </UserControl.Resources>
+
+    <DockPanel>
+        <WrapPanel Orientation="Horizontal" DockPanel.Dock="Top">
+
+            <controls21:DirectoryComboBox
+                 Style="{DynamicResource MaterialDesignComboBox}"
+                    FileFilter="Log_*.sqlite"
+                    ConnectionDirectory="{Binding ConnectionDirectory, RelativeSource={RelativeSource AncestorType=view:LogDatabaseView}}"
+                    x:Name="LogsComboBox"
+                    Width="600"
+                 Margin="20"
+                    Height="30"/>
+
+            <ToggleButton
+                    x:Name="ExpandCollapseToggle"
+                    Style="{DynamicResource MaterialDesignFlatToggleButton}"     Margin="20"
+                    ToolTip="Expand/Collapse all groups">
+                <ToggleButton.Content>
+                    <materialDesign:PackIcon Kind="CollapseAll" />
+                </ToggleButton.Content>
+                <materialDesign:ToggleButtonAssist.OnContent>
+                    <materialDesign:PackIcon Kind="ExpandAll" />
+                </materialDesign:ToggleButtonAssist.OnContent>
+            </ToggleButton>
+            <materialDesign:ColorZone
+                Mode="PrimaryMid">
+                <WrapPanel Orientation="Horizontal"      Margin="20">
+                <RadioButton x:Name="AllButton" IsChecked="True" Style="{DynamicResource MaterialDesignTabRadioButton}"  >All</RadioButton>
+                <RadioButton x:Name="LastRunButton" Style="{DynamicResource MaterialDesignTabRadioButton}">Last Run</RadioButton>
+                <RadioButton x:Name="LastDayButton" Style="{DynamicResource MaterialDesignTabRadioButton}">Last Day</RadioButton>
+                <RadioButton x:Name="ErrorButton" Style="{DynamicResource MaterialDesignTabRadioButton}">Error</RadioButton>
+                <RadioButton x:Name="WarnButton" Style="{DynamicResource MaterialDesignTabRadioButton}">Warn</RadioButton>
+            </WrapPanel>
+                </materialDesign:ColorZone>
+        </WrapPanel>
+
+        <controls:LogGrid x:Name="MainLogGrid" Style="{StaticResource LogGrid2}"/>
+
+    </DockPanel>
+</UserControl>

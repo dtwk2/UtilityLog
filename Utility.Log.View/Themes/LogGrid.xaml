@@ -1,0 +1,233 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Utility.Log.View.Controls"
+    xmlns:controls1="clr-namespace:Utility.Controls;assembly=Utility.Controls"
+    xmlns:dgx="urn:tom-englert.de/DataGridExtensions"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:infrastructure="clr-namespace:Pcs.Hfrr.Log.View.Infrastructure"
+    xmlns:infrastructure1="clr-namespace:Pcs.Hfrr.Log.View.Infrastructure;assembly=Utility.Log"
+    xmlns:infrastructure2="clr-namespace:Pcs.Hfrr.Log.View.Infrastructure;assembly=Utility.View"
+    xmlns:infrastructure3="clr-namespace:Utility.View.Infrastructure;assembly=Utility.View"
+    xmlns:infrastructure31="clr-namespace:Utility.View.Infrastructure;assembly=Utility.Controls"
+    xmlns:infrastructure4="clr-namespace:Pcs.Hfrr.Log.View.Infrastructure;assembly=Utility.Controls"
+    xmlns:log1="clr-namespace:Pcs.Hfrr.Log;assembly=Utility.Log"
+    xmlns:mdr="clr-namespace:MaterialDesignColors.Recommended;assembly=MaterialDesignColors"
+    xmlns:splat="clr-namespace:Splat;assembly=Splat"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:view="clr-namespace:Pcs.Hfrr.Log.View">
+
+
+    <system:Double x:Key="MessageWidth">600</system:Double>
+
+    <!--<ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml"/>
+    </ResourceDictionary.MergedDictionaries>-->
+    <!--<infrastructure:RowStyleSelector x:Key="RowStyleSelector" />-->
+    <infrastructure:SingleLineConverter x:Key="SingleLineConverter" />
+
+    <!--<Style x:Key="ErrorStyle" TargetType="DataGridCell">
+        <Setter Property="Foreground" Value="Red" />
+    </Style>
+
+    <Style x:Key="WarnStyle" TargetType="DataGridCell">
+        <Setter Property="Foreground" Value="Green" />
+    </Style>
+
+    <Style x:Key="InfoStyle" TargetType="DataGridCell">
+        <Setter Property="Foreground" Value="Blue" />
+    </Style>
+
+    <infrastructure:ConditionalStyleSelector x:Key="LevelCellStyleSelector">
+        <infrastructure:ConditionalStyleSelector.Rules>
+            <infrastructure:ConditionalStyleRule Style="{StaticResource ErrorStyle}" Value="{x:Static splat:LogLevel.Error}" />
+            <infrastructure:ConditionalStyleRule Style="{StaticResource WarnStyle}" Value="{x:Static splat:LogLevel.Warn}" />
+            <infrastructure:ConditionalStyleRule Style="{StaticResource InfoStyle}" Value="{x:Static splat:LogLevel.Info}" />
+        </infrastructure:ConditionalStyleSelector.Rules>
+    </infrastructure:ConditionalStyleSelector>-->
+
+    <DataTemplate x:Key="CollapseBoxTemplate" DataType="{x:Type log1:Log}">
+        <controls1:CollapseBox Margin="-16,-10,-16,-10"  CollapsedHeight="35">
+            <controls1:CollapseBox.ExpandedContent>
+                <Grid VerticalAlignment="Top">
+                    <TextBlock Text="{Binding Message}" Margin="10,-30" VerticalAlignment="Top" ></TextBlock>
+                </Grid>
+            </controls1:CollapseBox.ExpandedContent>
+            <controls1:CollapseBox.CollapsedContent>
+                <TextBlock Text="{Binding Message, Converter={StaticResource SingleLineConverter}}" Margin="10,5" VerticalAlignment="Top" ></TextBlock>
+            </controls1:CollapseBox.CollapsedContent>
+        </controls1:CollapseBox>
+    </DataTemplate>
+
+    <infrastructure4:TextTemplateSelector x:Key="MessageDataTemplateSelector" ExpanderTemplate="{StaticResource CollapseBoxTemplate}">
+        <infrastructure4:TextTemplateSelector.Property>Message</infrastructure4:TextTemplateSelector.Property>
+        <infrastructure4:TextTemplateSelector.Width>
+            <StaticResource ResourceKey="MessageWidth" />
+        </infrastructure4:TextTemplateSelector.Width>
+        <infrastructure4:TextTemplateSelector.TextBoxTemplate>
+            <DataTemplate DataType="{x:Type log1:Log}">
+                <TextBlock Text="{Binding Message}" TextWrapping="WrapWithOverflow"/>
+            </DataTemplate>
+        </infrastructure4:TextTemplateSelector.TextBoxTemplate>
+    </infrastructure4:TextTemplateSelector>
+
+    <!--<infrastructure:TextTemplateSelector x:Key="StackTraceDataTemplateSelector" ExpanderTemplate="{StaticResource CollapseBoxTemplate}">
+        <infrastructure:TextTemplateSelector.Property>StackTrace</infrastructure:TextTemplateSelector.Property>
+        <infrastructure:TextTemplateSelector.TextBoxTemplate>
+            <DataTemplate DataType="{x:Type log1:Log}">
+                <TextBlock Text="{Binding StackTrace}" />
+            </DataTemplate>
+        </infrastructure:TextTemplateSelector.TextBoxTemplate>
+    </infrastructure:TextTemplateSelector>-->
+
+    <Style x:Key="LogGrid2" TargetType="{x:Type controls:LogGrid}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:LogGrid}">
+                    <Grid>
+                        <DataGrid
+                            MinRowHeight="25"
+                            RowHeight="NaN"
+                            x:Name="MainRadGridView"
+                            dgx:DataGridFilter.IsAutoFilterEnabled="True"
+                            AutoGenerateColumns="False"
+                            CanUserResizeColumns="True"
+                            IsReadOnly="True"
+                            ItemsSource="{TemplateBinding ItemsSource}"
+                            SelectionMode="Extended">
+                            <DataGrid.Columns>
+                                <!--<telerik:GridViewToggleRowDetailsColumn DataContext="{Binding Converter={x:Static infrastructure:DefaultConverter.Instance}}" />-->
+
+                                <DataGridTextColumn
+                                    Width="150"
+                                    Binding="{Binding Path=Date, StringFormat={} {0:HH:mm:ss}}"
+                                    Header="Time" />
+                                <DataGridTextColumn
+                                    Width="100"
+                                    Binding="{Binding Path=Date, StringFormat={} {0:dd MMM yy}}"
+                                    Header="Date" />
+                                <DataGridTextColumn
+                                    Width="100"
+                                    Binding="{Binding Path=Level}"
+                                    Header="Level">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Level, Converter={x:Static infrastructure31:DefaultConverter.Instance}}" Value="{x:Static splat:LogLevel.Error}">
+                                                    <Setter Property="Foreground">
+                                                        <Setter.Value>
+                                                            <SolidColorBrush Color="{x:Static mdr:RedSwatch.Red500}" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+
+                                                <DataTrigger Binding="{Binding Level}" Value="{x:Static splat:LogLevel.Warn}">
+                                                    <Setter Property="Foreground">
+                                                        <Setter.Value>
+                                                            <SolidColorBrush Color="{x:Static mdr:OrangeSwatch.Orange500}" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Level}" Value="{x:Static splat:LogLevel.Info}">
+                                                    <Setter Property="Foreground">
+                                                        <Setter.Value>
+                                                            <SolidColorBrush Color="{x:Static mdr:BlueSwatch.Blue500}" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <!--<telerik:GridViewDataColumn DataMemberBinding="{Binding Path=RunCount}" Header="Run Count" Width="100" IsCellMergingEnabled="True" />-->
+                                <!--<telerik:GridViewDataColumn DataMemberBinding="{Binding Path=Source}" Header="Source" Width="200" />-->
+
+                                <DataGridTemplateColumn CellTemplateSelector="{StaticResource MessageDataTemplateSelector}" Header="Message" >
+                                    <DataGridTemplateColumn.MinWidth>
+                                        <StaticResource ResourceKey="MessageWidth" />
+                                    </DataGridTemplateColumn.MinWidth>
+                                </DataGridTemplateColumn>
+
+
+                                <DataGridTextColumn
+                                    Width="*"
+                                    Binding="{Binding Path=StackTrace}"
+                                    Header="Stack Trace" />
+
+                            </DataGrid.Columns>
+                            <!--<telerik:RadGridView.SortDescriptors>
+                                <telerik:ColumnSortDescriptor Column="{Binding Columns[\Time\], ElementName=MainRadGridView}" SortDirection="Descending" />
+                                <telerik:ColumnSortDescriptor Column="{Binding Columns[\Date\], ElementName=MainRadGridView}" SortDirection="Descending" />
+                            </telerik:RadGridView.SortDescriptors>-->
+                            <!--<DataGrid.GroupDescriptors>
+                                <telerik:ColumnGroupDescriptor Column="{Binding Columns[\Level\], ElementName=MainRadGridView}" SortDirection="Ascending" />
+                            </DataGrid.GroupDescriptors>-->
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate DataType="infrastructure1:LogGroup">
+                                    <ItemsControl ItemsSource="{Binding Logs}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Width="Auto" HorizontalAlignment="Stretch">
+                                                    <Grid.Resources>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Margin" Value="5,0" />
+                                                        </Style>
+                                                    </Grid.Resources>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition />
+                                                        <RowDefinition Height="15" />
+                                                        <RowDefinition />
+                                                        <RowDefinition Height="15" />
+                                                        <RowDefinition />
+                                                        <RowDefinition Height="15" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <TextBlock
+                                                        Grid.Row="0"
+                                                        Grid.Column="1"
+                                                        FontWeight="Bold"
+                                                        Text="Date" />
+                                                    <TextBlock
+                                                        Grid.Row="0"
+                                                        Grid.Column="2"
+                                                        Text="{Binding Date}" />
+                                                    <TextBlock
+                                                        Grid.Row="2"
+                                                        Grid.Column="1"
+                                                        FontWeight="Bold"
+                                                        Text="Message" />
+                                                    <TextBlock
+                                                        Grid.Row="2"
+                                                        Grid.Column="2"
+                                                        Text="{Binding Message}" />
+                                                    <TextBlock
+                                                        Grid.Row="4"
+                                                        Grid.Column="1"
+                                                        FontWeight="Bold"
+                                                        Text="StackTrace" />
+                                                    <TextBlock
+                                                        Grid.Row="4"
+                                                        Grid.Column="2"
+                                                        Text="{Binding StackTrace}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                        <hc:GotoTop Animated="True" AutoHiding="True" AnimationTime="1500" Target="{Binding ElementName=MainRadGridView}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20"/>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

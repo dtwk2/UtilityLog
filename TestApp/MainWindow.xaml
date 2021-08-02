@@ -1,0 +1,34 @@
+﻿<Window x:Class="TestApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestApp"
+        xmlns:rui="http://reactiveui.net"
+        xmlns:controls="clr-namespace:Utility.Controls;assembly=Utility.Controls"
+ 
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <TabControl>
+        <TabItem Header="Object">
+            <controls:ObjectControl></controls:ObjectControl>
+        </TabItem>
+        <TabItem Header="Exception">
+            <controls:ConfirmationDialog></controls:ConfirmationDialog>
+        </TabItem>
+        <TabItem>
+            <rui:ViewModelViewHost x:Name="ViewModelViewHost">
+
+            </rui:ViewModelViewHost>
+        </TabItem>
+        <TabItem Header="Flash-Slider">
+            <UniformGrid VerticalAlignment="Center">
+                <Slider Template="{StaticResource MaterialDesignSliderHorizontal2}"  Minimum="1" Maximum="10" x:Name="Slider" MinWidth="100"></Slider>
+                <controls:CollapseBox CollapsedHeight="20" ExpandedHeight="200" Width="200">
+                </controls:CollapseBox>
+            </UniformGrid>
+        </TabItem>
+    </TabControl>
+    
+</Window>

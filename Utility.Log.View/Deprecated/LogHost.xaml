@@ -1,0 +1,92 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:infra="clr-namespace:Pcs.Hfrr.Log.View.Infrastructure"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:view="clr-namespace:Pcs.Hfrr.Log.View"
+    xmlns:controls="clr-namespace:Utility.Log.View.Controls">
+
+    <Style TargetType="{x:Type controls:LogHost}" BasedOn="{StaticResource {x:Type ContentControl}}" >
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:LogHost}">
+                    <Border x:Name="Border1" BorderThickness="3">
+                        <Border.BorderBrush>
+                            <SolidColorBrush x:Name="borderBrush" Color="Gainsboro" />
+                        </Border.BorderBrush>
+                        <Grid>
+                    
+
+                                <Grid>
+                                    <!--<view:LogView
+                                    x:Name="LogView1"
+                                    MaxHeight="300"
+                                    DockPanel.Dock="Bottom" />-->
+
+                                    <ContentPresenter Margin="{TemplateBinding Padding}" 
+                                                      Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    <materialDesign:DialogHost x:Name="DialogHost1"/>
+                                    <Viewbox
+                                    Width="100"
+                                    Height="40"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top">
+
+                                        <Menu Background="Transparent">
+                                            <MenuItem
+                                            x:Name="MenuItem1"
+                                            Command="{x:Static infra:RoutedCommands.ShowLogPanel}"
+                                            CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"
+                                            IsCheckable="True"
+                                            ToolTip="Show Log">
+                                                <MenuItem.Icon>
+                                                    <materialDesign:PackIcon Kind="ConsoleLine" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                        </Menu>
+                                    </Viewbox>
+                                </Grid>
+                        
+                            <ProgressBar HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" 
+                                         x:Name="MainProgressBar" IsIndeterminate="True" VerticalAlignment="Bottom" 
+                                         Height="3"></ProgressBar>
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="ValidStates">
+                                <VisualState Name="Valid">
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="borderBrush"
+                                            Storyboard.TargetProperty="Color"
+                                            To="Gainsboro" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState Name="Invalid">
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="borderBrush"
+                                            Storyboard.TargetProperty="Color"
+                                            To="Red" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="00:00:05" To="Valid">
+                                        <VisualTransition.GeneratedEasingFunction>
+                                            <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                        </VisualTransition.GeneratedEasingFunction>
+                                    </VisualTransition>
+
+                                    <VisualTransition GeneratedDuration="00:00:00.5" To="Invalid">
+                                        <VisualTransition.GeneratedEasingFunction>
+                                            <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                        </VisualTransition.GeneratedEasingFunction>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

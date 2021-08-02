@@ -1,0 +1,163 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:testApp="clr-namespace:TestApp">
+
+    <ResourceDictionary.MergedDictionaries>
+        <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Pink.xaml" />-->
+        <ResourceDictionary Source="pack://application:,,,/Utility.Log.View;component/ProgressBar/FlashThumb.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+
+    <!--  MahApps Brushes  -->
+    <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource Primary700}" />
+    <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource Primary500}" />
+    <SolidColorBrush x:Key="AccentColorBrush2" Color="{DynamicResource Primary400}" />
+    <SolidColorBrush x:Key="AccentColorBrush3" Color="{DynamicResource Primary300}" />
+    <SolidColorBrush x:Key="AccentColorBrush4" Color="{DynamicResource Primary200}" />
+    <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{DynamicResource Primary700}" />
+    <SolidColorBrush x:Key="AccentSelectedColorBrush" Color="{DynamicResource Primary500Foreground}" />
+    <LinearGradientBrush x:Key="ProgressBrush" StartPoint="1.002,0.5" EndPoint="0.001,0.5">
+        <GradientStop Offset="0" Color="{DynamicResource Primary700}" />
+        <GradientStop Offset="1" Color="{DynamicResource Primary300}" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="CheckmarkFill" Color="{DynamicResource Primary500}" />
+    <SolidColorBrush x:Key="RightArrowFill" Color="{DynamicResource Primary500}" />
+    <SolidColorBrush x:Key="IdealForegroundColorBrush" Color="{DynamicResource Primary500Foreground}" />
+    <SolidColorBrush
+        x:Key="IdealForegroundDisabledBrush"
+        Opacity="0.4"
+        Color="{DynamicResource Primary500}" />
+
+    <SolidColorBrush x:Key="MaterialDesignFlatButtonClick" Color="#10000000" />
+    <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#FFFFFFFF" />
+
+    <Style TargetType="{x:Type Separator}">
+        <Setter Property="Background" Value="{DynamicResource MaterialDesignDivider}" />
+    </Style>
+
+
+
+    <Style x:Key="MaterialDesignRepeatButton" TargetType="{x:Type RepeatButton}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Rectangle Fill="Transparent" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <ControlTemplate x:Key="MaterialDesignTimedSlider" TargetType="{x:Type Slider}">
+        <Border
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            SnapsToDevicePixels="True"
+            UseLayoutRounding="True">
+            <Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TickBar
+                    x:Name="TopTick"
+                    Grid.Row="0"
+                    Height="4"
+                    Margin="0,0,0,2"
+                    Fill="{TemplateBinding Foreground}"
+                    Placement="Top"
+                    Visibility="Collapsed" />
+                <TickBar
+                    x:Name="BottomTick"
+                    Grid.Row="2"
+                    Height="4"
+                    Margin="0,2,0,0"
+                    Fill="{TemplateBinding Foreground}"
+                    Placement="Bottom"
+                    Visibility="Collapsed" />
+                <Rectangle
+                    Grid.Row="1"
+                    Height="4"
+                    VerticalAlignment="Center"
+                    Fill="{TemplateBinding Foreground}"
+                    Opacity="0.38"
+                    RadiusX="2"
+                    RadiusY="2" />
+                <testApp:TimedProgressBar
+                    x:Name="activeTrack"
+                    Grid.Row="1"
+                    Width="{Binding DecreaseRepeatButton.ActualWidth, ElementName=PART_Track}"
+                    Height="8"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource MaterialDesignLinearProgressBar}"
+                    Duration="{Binding Path=Value, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Slider}}, Converter={StaticResource DurationConverter}}" />
+                <!--  Selection range must be wrapped in a Canvas for the position to be updated correctly  -->
+                <Canvas
+                    Grid.Row="1"
+                    Height="6"
+                    VerticalAlignment="Center">
+                    <Rectangle
+                        x:Name="PART_SelectionRange"
+                        Height="6"
+                        Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
+                        RadiusX="2"
+                        RadiusY="2"
+                        Visibility="Collapsed" />
+                </Canvas>
+                <Track
+                    x:Name="PART_Track"
+                    Grid.Row="1"
+                    Height="20">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource MaterialDesignRepeatButton}" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource MaterialDesignRepeatButton}" />
+                    </Track.IncreaseRepeatButton>
+                    <!--  It's important that the Thumb gets added last in the XAML to make sure it is drawn on top of both repeat buttons  -->
+                    <Track.Thumb>
+                        <!--<Thumb Template="{StaticResource MaterialDesignSliderThumb2}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />-->
+                        <testApp:FlashThumb SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Duration="{Binding Path=Value, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Slider}}, Converter={StaticResource DurationConverter}}">
+                            <!--<i:Interaction.Triggers>
+                                        <i:EventTrigger  EventName="DragCompleted" >
+                                          <i:InvokeCommandAction Command="{Binding Flash, RelativeSource={RelativeSource AncestorType=local:FlashThumb}}"></i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>-->
+                        </testApp:FlashThumb>
+                    </Track.Thumb>
+                </Track>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="TickPlacement" Value="TopLeft">
+                <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="BottomRight">
+                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="Both">
+                <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsSelectionRangeEnabled" Value="true">
+                <Setter TargetName="PART_SelectionRange" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsDirectionReversed" Value="True">
+                <!--<Setter TargetName="activeTrack" Property="CornerRadius" Value="0,3,3,0" />-->
+                <Setter TargetName="activeTrack" Property="HorizontalAlignment" Value="Right" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+</ResourceDictionary>

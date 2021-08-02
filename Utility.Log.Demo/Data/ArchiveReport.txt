@@ -1,0 +1,19 @@
+Archive Report for C:\Users\declan.taylor\source\repos\Pcs.Hfrr.Log\Pcs.Hfrr.Log.Demo\Data\LogArchive_2021-03-22T15-09-23.zip
+The file 'C:\Users\declan.taylor\source\repos\Pcs.Hfrr.Log\Pcs.Hfrr.Log.Demo\Data\LogArchive_2021-03-22T15-09-23.zip' already exists.
+
+   at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle)
+   at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean useAsync)
+   at System.IO.Compression.ZipFile.Open(String archiveFileName, ZipArchiveMode mode, Encoding entryNameEncoding)
+   at System.IO.Compression.ZipFile.Open(String archiveFileName, ZipArchiveMode mode)
+   at Pcs.Hfrr.Log.Common.ZipHelper.ArchiveToFile(FileInfo[] sourceFiles, String destinationArchiveFileName, IProgress`1 progress)+MoveNext() in C:\Users\declan.taylor\source\repos\Pcs.Hfrr.Log\Pcs.Hfrr.Log\Common\ZipHelper.cs:line 22
+   at System.Collections.Generic.LargeArrayBuilder`1.AddRange(IEnumerable`1 items)
+   at System.Collections.Generic.EnumerableHelpers.ToArray[T](IEnumerable`1 source)
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Pcs.Hfrr.Log.ExportLogService.<>c__DisplayClass2_0.<Export>b__2() in C:\Users\declan.taylor\source\repos\Pcs.Hfrr.Log\Pcs.Hfrr.Log\ExportLogService.cs:line 34
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__274_0(Object obj)
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
