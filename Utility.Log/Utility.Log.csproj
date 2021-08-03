@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>For logging</Description>
+    <Version>1.0.5</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="ReactiveUI" Version="11.4.1" />
+    <PackageReference Include="sqlite-net-base" Version="1.6.292" />
+  </ItemGroup>
+	<!--<Target Name="PostPack" AfterTargets="Pack">
+			<Exec Command="&#xD;&#xA;set store=&quot;C:\Users\declan.taylor\Documents&quot;&#xD;&#xA;&#xD;&#xA;			for %25%25f in (&quot;$(ProjectDir)$(OutDir)..\*.nupkg&quot;) do  xcopy %25%25f %25store%25  /Y /I /D" />
+	</Target>-->
+
+
+</Project>
