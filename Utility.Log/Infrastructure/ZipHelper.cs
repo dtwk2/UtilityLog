@@ -4,7 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 
-namespace Pcs.Hfrr.Log.Common
+namespace Utility.Log.Infrastructure
 {
     /// <summary>
     /// <a href="https://stackoverflow.com/questions/42430559/progress-bar-not-available-for-zipfile-how-to-give-feedback-when-program-seems"></a>

@@ -1,8 +1,4 @@
-﻿using Pcs.Hfrr.Log.View.Infrastructure;
-using ReactiveUI;
-using Splat;
-using SQLite;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
@@ -11,9 +7,15 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using ReactiveUI;
+using Splat;
+using SQLite;
+using Utility.Log.Model;
+using Utility.Log.View.Infrastructure;
 using Utility.View.Infrastructure;
+using Constants = Utility.Log.Infrastructure.Constants;
 
-namespace Pcs.Hfrr.Log.View {
+namespace Utility.Log.View {
 
     /// <summary>
     /// Interaction logic for LogDatabaseUserControl.xaml
@@ -44,7 +46,7 @@ namespace Pcs.Hfrr.Log.View {
                         .Merge(GetConnections())
                         .DistinctUntilChanged(a => a.DatabasePath)
                         .CombineLatest(SelectQueries())
-                        .SelectMany(c => Task.Run(() => c.First?.Query<Log>(c.Second).ToArray()).ToObservable())
+                        .SelectMany(c => Task.Run(() => c.First?.Query<Model.Log>(c.Second).ToArray()).ToObservable())
                         .Select(a => a.GroupBy(log => log.Key).Select(grouping => new LogGroup(grouping.Key, grouping.ToArray())))
                         .ObserveOnDispatcher()
                         .Subscribe(a => this.MainLogGrid.ItemsSource = a);

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.IO;
-using Pcs.Hfrr.Log;
-using Pcs.Hfrr.Log.Infrastructure;
 using Splat;
+using Utility.Log.Logger;
 
-namespace Utility.Infrastructure
+namespace Utility.Log.Infrastructure
 {
     public class BootStrapper : IEnableLogger
     {
@@ -31,7 +30,7 @@ namespace Utility.Infrastructure
         private static SQLite.SQLiteConnection CreateConnection()
         {
             string path = ConnectionDirectory.FullName + $"/Log_{DateTime.Now:yyyy-MM-dd}.sqlite";
-            var conn = ConnectionFactory.Create<Log>(path);
+            var conn = ConnectionFactory.Create<Model.Log>(path);
             return conn;
         }
 

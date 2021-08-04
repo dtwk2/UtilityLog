@@ -3,7 +3,7 @@
 //using Splat;
 //using System;
 
-//namespace Pcs.Hfrr.Log.Advice
+//namespace Log.Advice
 //{
 //    /// <summary>
 //    /// Aspect that, when applied on a method, logs details,

@@ -1,13 +1,13 @@
 ﻿<controls:Window
-    x:Class="Pcs.Hfrr.Log.Demo.MainWindow"
+    x:Class="Utility.Log.Demo.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="clr-namespace:Pcs.Hfrr.Log.View;assembly=Utility.Log.View"
-    xmlns:infrastructure1="clr-namespace:Utility.Infrastructure;assembly=Utility.Log.Infrastructure"
     xmlns:controls="clr-namespace:Utility.Log.View.Controls;assembly=Utility.Log.View"
     xmlns:controls1="clr-namespace:Utility.Controls;assembly=Utility.Controls"
+    xmlns:view1="clr-namespace:Utility.Log.View;assembly=Utility.Log.View"
+    xmlns:meta="clr-namespace:Utility.Log.Infrastructure;assembly=Utility.Log.Infrastructure"
     Title="MainWindow"
     Width="800"
     Height="450"
@@ -48,15 +48,15 @@
                 VerticalAlignment="Stretch">
 
                 <TabItem Header="Database">
-                    <view:LogDatabaseView x:Name="LogDbView1" ConnectionDirectory="{Binding Source={x:Static infrastructure1:BootStrapper.ConnectionDirectory}, Path=FullName}" />
+                    <view1:LogDatabaseView x:Name="LogDbView1" ConnectionDirectory="{Binding Source={x:Static meta:BootStrapper.ConnectionDirectory}, Path=FullName}" />
                 </TabItem>
 
                 <TabItem Header="Grid">
-                    <view:LogGridView x:Name="LogGridUserControl" />
+                    <view1:LogGridView x:Name="LogGridUserControl" />
                 </TabItem>
 
                 <TabItem Header="Text">
-                    <view:LogView x:Name="LogView" />
+                    <view1:LogView x:Name="LogView" />
                 </TabItem>
 
 

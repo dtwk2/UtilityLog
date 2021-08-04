@@ -1,11 +1,11 @@
-﻿using Microsoft.Xaml.Behaviors;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Xaml.Behaviors;
 
-namespace Pcs.Hfrr.Log.View.Infrastructure
+namespace Utility.Log.View.Infrastructure
 {
     public class DataGridHideBrowsableFalseBehavior : Behavior<DataGrid>
     {

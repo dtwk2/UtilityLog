@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Pcs.Hfrr.Log.View.Json.ValueConverters
+namespace Utility.Log.View.Json.ValueConverters
 {
     public sealed class MethodToValueConverter : IValueConverter
     {

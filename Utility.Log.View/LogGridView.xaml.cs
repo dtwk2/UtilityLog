@@ -1,14 +1,15 @@
-﻿using DynamicData;
-using Pcs.Hfrr.Log.View.Infrastructure;
-using Splat;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Controls;
+using DynamicData;
+using Splat;
+using Utility.Log.Logger;
+using Utility.Log.Model;
+using Utility.Log.View.Infrastructure;
 
-namespace Pcs.Hfrr.Log.View {
+namespace Utility.Log.View {
    /// <summary>
    /// Interaction logic for LogGridUserControl.xaml
    /// </summary>
@@ -44,9 +45,9 @@ namespace Pcs.Hfrr.Log.View {
 
 
 
-         IObservable<(Guid guid, Log[] logs)> SelectGuidAndLogs() {
+         IObservable<(Guid guid, Model.Log[] logs)> SelectGuidAndLogs() {
 
-            return Observable.Create<(Guid guid, Log[] logs)>(observer => {
+            return Observable.Create<(Guid guid, Model.Log[] logs)>(observer => {
                return Locator.Current.GetServices<IObservableLogger>().ToObservable()
                   .Distinct(a => a.GetType().Name)
                   .Subscribe(obs => {
@@ -63,15 +64,15 @@ namespace Pcs.Hfrr.Log.View {
                   });
             });
 
-            IEnumerable<Log> SelectLogs(LogLevel level, object message, Guid guid, DateTime date) {
+            IEnumerable<Model.Log> SelectLogs(LogLevel level, object message, Guid guid, DateTime date) {
                switch (message) {
                   case string msg:
-                     yield return new Log(msg, level, runCount) { Key = guid, Date = date };
+                     yield return new Model.Log(msg, level, runCount) { Key = guid, Date = date };
                      break;
 
                   case Exception exception: {
                         while (exception != null) {
-                           yield return new Log(exception, level, runCount) { Key = guid, Date = date };
+                           yield return new Model.Log(exception, level, runCount) { Key = guid, Date = date };
                            exception = exception.InnerException;
                         }
 

@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extraneous", "Extraneous", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomWindow", "CustomWindow\CustomWindow.csproj", "{6C14AE08-7875-4B7E-BD19-A289193DF1F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.View", "Utility.View\Utility.View.csproj", "{F19FBBAF-E687-4C9E-BFA3-C32F9040BE1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{6C14AE08-7875-4B7E-BD19-A289193DF1F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C14AE08-7875-4B7E-BD19-A289193DF1F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C14AE08-7875-4B7E-BD19-A289193DF1F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F19FBBAF-E687-4C9E-BFA3-C32F9040BE1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F19FBBAF-E687-4C9E-BFA3-C32F9040BE1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F19FBBAF-E687-4C9E-BFA3-C32F9040BE1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F19FBBAF-E687-4C9E-BFA3-C32F9040BE1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +86,7 @@ Global
 		{B55148CF-FAFF-4F53-93D5-3DBC6143ECA5} = {F81C05F1-9456-4C94-B72F-B67CB0654EDA}
 		{723156FF-E7B0-4995-B397-F83C24EEF771} = {9BCB89FB-E2F0-4EF3-AF5F-B08E607DD03E}
 		{6C14AE08-7875-4B7E-BD19-A289193DF1F8} = {9BCB89FB-E2F0-4EF3-AF5F-B08E607DD03E}
+		{F19FBBAF-E687-4C9E-BFA3-C32F9040BE1A} = {F81C05F1-9456-4C94-B72F-B67CB0654EDA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6F9E84CC-AC0A-4207-883F-53E485EC2409}

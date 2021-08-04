@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Utility.Log.Infrastructure\Utility.Log.Infrastructure.csproj" />
     <ProjectReference Include="..\Utility.Log.View\Utility.Log.View.csproj" />
   </ItemGroup>
 

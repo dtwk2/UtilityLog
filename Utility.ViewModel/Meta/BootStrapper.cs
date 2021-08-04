@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Autofac;
+﻿using Autofac;
 
-namespace Pcs.Hfrr.Log.ViewModel.Meta {
+namespace Utility.ViewModel.Meta {
    public class BootStrapper {
 
       public BootStrapper(ContainerBuilder builder)

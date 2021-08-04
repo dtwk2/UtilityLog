@@ -1,8 +1,8 @@
-﻿using Splat;
-using System;
+﻿using System;
 using System.ComponentModel;
+using Splat;
 
-namespace Pcs.Hfrr.Log
+namespace Utility.Log.Logger
 {
     public class CombinedLogger : ILogger
     {

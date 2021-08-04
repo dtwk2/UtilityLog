@@ -8,9 +8,9 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using EMA.ExtendedWPFVisualTreeHelper;
-using Pcs.Hfrr.Log.View.Infrastructure;
 using ReactiveUI;
 using TomsToolbox.Wpf;
+using Utility.Log.Model;
 
 namespace Utility.Log.View.Controls {
    public class LogGrid : Control {

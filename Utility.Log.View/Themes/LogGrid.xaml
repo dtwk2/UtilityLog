@@ -5,17 +5,13 @@
     xmlns:controls1="clr-namespace:Utility.Controls;assembly=Utility.Controls"
     xmlns:dgx="urn:tom-englert.de/DataGridExtensions"
     xmlns:hc="https://handyorg.github.io/handycontrol"
-    xmlns:infrastructure="clr-namespace:Pcs.Hfrr.Log.View.Infrastructure"
-    xmlns:infrastructure1="clr-namespace:Pcs.Hfrr.Log.View.Infrastructure;assembly=Utility.Log"
-    xmlns:infrastructure2="clr-namespace:Pcs.Hfrr.Log.View.Infrastructure;assembly=Utility.View"
-    xmlns:infrastructure3="clr-namespace:Utility.View.Infrastructure;assembly=Utility.View"
     xmlns:infrastructure31="clr-namespace:Utility.View.Infrastructure;assembly=Utility.Controls"
-    xmlns:infrastructure4="clr-namespace:Pcs.Hfrr.Log.View.Infrastructure;assembly=Utility.Controls"
-    xmlns:log1="clr-namespace:Pcs.Hfrr.Log;assembly=Utility.Log"
     xmlns:mdr="clr-namespace:MaterialDesignColors.Recommended;assembly=MaterialDesignColors"
     xmlns:splat="clr-namespace:Splat;assembly=Splat"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
-    xmlns:view="clr-namespace:Pcs.Hfrr.Log.View">
+    xmlns:infrastructure5="clr-namespace:Utility.Controls.Infrastructure;assembly=Utility.Controls"
+    xmlns:model="clr-namespace:Utility.Log.Model;assembly=Utility.Log"
+    xmlns:infrastructure6="clr-namespace:Utility.Log.View.Infrastructure">
 
 
     <system:Double x:Key="MessageWidth">600</system:Double>
@@ -25,7 +21,7 @@
         <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml"/>
     </ResourceDictionary.MergedDictionaries>-->
     <!--<infrastructure:RowStyleSelector x:Key="RowStyleSelector" />-->
-    <infrastructure:SingleLineConverter x:Key="SingleLineConverter" />
+    <infrastructure6:SingleLineConverter x:Key="SingleLineConverter" />
 
     <!--<Style x:Key="ErrorStyle" TargetType="DataGridCell">
         <Setter Property="Foreground" Value="Red" />
@@ -47,7 +43,7 @@
         </infrastructure:ConditionalStyleSelector.Rules>
     </infrastructure:ConditionalStyleSelector>-->
 
-    <DataTemplate x:Key="CollapseBoxTemplate" DataType="{x:Type log1:Log}">
+    <DataTemplate x:Key="CollapseBoxTemplate" DataType="{x:Type model:Log}">
         <controls1:CollapseBox Margin="-16,-10,-16,-10"  CollapsedHeight="35">
             <controls1:CollapseBox.ExpandedContent>
                 <Grid VerticalAlignment="Top">
@@ -60,17 +56,17 @@
         </controls1:CollapseBox>
     </DataTemplate>
 
-    <infrastructure4:TextTemplateSelector x:Key="MessageDataTemplateSelector" ExpanderTemplate="{StaticResource CollapseBoxTemplate}">
-        <infrastructure4:TextTemplateSelector.Property>Message</infrastructure4:TextTemplateSelector.Property>
-        <infrastructure4:TextTemplateSelector.Width>
+    <infrastructure5:TextTemplateSelector x:Key="MessageDataTemplateSelector" ExpanderTemplate="{StaticResource CollapseBoxTemplate}">
+        <infrastructure5:TextTemplateSelector.Property>Message</infrastructure5:TextTemplateSelector.Property>
+        <infrastructure5:TextTemplateSelector.Width>
             <StaticResource ResourceKey="MessageWidth" />
-        </infrastructure4:TextTemplateSelector.Width>
-        <infrastructure4:TextTemplateSelector.TextBoxTemplate>
-            <DataTemplate DataType="{x:Type log1:Log}">
+        </infrastructure5:TextTemplateSelector.Width>
+        <infrastructure5:TextTemplateSelector.TextBoxTemplate>
+            <DataTemplate DataType="{x:Type model:Log}">
                 <TextBlock Text="{Binding Message}" TextWrapping="WrapWithOverflow"/>
             </DataTemplate>
-        </infrastructure4:TextTemplateSelector.TextBoxTemplate>
-    </infrastructure4:TextTemplateSelector>
+        </infrastructure5:TextTemplateSelector.TextBoxTemplate>
+    </infrastructure5:TextTemplateSelector>
 
     <!--<infrastructure:TextTemplateSelector x:Key="StackTraceDataTemplateSelector" ExpanderTemplate="{StaticResource CollapseBoxTemplate}">
         <infrastructure:TextTemplateSelector.Property>StackTrace</infrastructure:TextTemplateSelector.Property>
@@ -165,7 +161,7 @@
                                 <telerik:ColumnGroupDescriptor Column="{Binding Columns[\Level\], ElementName=MainRadGridView}" SortDirection="Ascending" />
                             </DataGrid.GroupDescriptors>-->
                             <DataGrid.RowDetailsTemplate>
-                                <DataTemplate DataType="infrastructure1:LogGroup">
+                                <DataTemplate DataType="model:LogGroup">
                                     <ItemsControl ItemsSource="{Binding Logs}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>

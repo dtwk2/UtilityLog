@@ -3,7 +3,7 @@
 //using Splat;
 //using System;
 
-//namespace Pcs.Hfrr.Log.Advice
+//namespace Log.Advice
 //{
 //    /// Aspect that, when applied on a method, catches all its null return values, and logs details,
 //    /// </summary>

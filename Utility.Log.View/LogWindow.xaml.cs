@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Pcs.Hfrr.Log.View
+namespace Utility.Log.View
 {
     /// <summary>
     /// Interaction logic for LogWindow.xaml

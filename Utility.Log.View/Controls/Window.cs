@@ -9,14 +9,13 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using MaterialDesignThemes.Wpf;
-using Pcs.Hfrr.Log;
-using Pcs.Hfrr.Log.Model;
-using Pcs.Hfrr.Log.View;
-using Pcs.Hfrr.Log.View.Infrastructure;
 using ReactiveUI;
 using SnazzyWpfBorders.Components;
 using SnazzyWpfBorders.Extensions;
 using Utility.Controls;
+using Utility.Log.Model;
+using Utility.Log.View.Infrastructure;
+using Utility.ViewModel;
 
 namespace Utility.Log.View.Controls {
     public class Window : CustomWindow.Window, IShowExceptionDialog {
@@ -103,10 +102,18 @@ namespace Utility.Log.View.Controls {
 
             MessageBus.Current
                .ListenIncludeLatest<Progress>()
+               .WhereNotNull()
                 .ObserveOnDispatcher()
-                .Subscribe(a => {
+                .Subscribe(a =>
+               {
+                    progressBar.Visibility = Visibility.Visible;
                     progressBar.Value = a.Value;
                     progressBar.IsIndeterminate = a.IsIndeterminate;
+
+                    if(progressBar.Value==0|| progressBar.Value == 100)
+                    {
+                       progressBar.Visibility = Visibility.Collapsed;
+                    }
                 });
 
             base.OnApplyTemplate();

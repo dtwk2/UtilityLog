@@ -1,4 +1,4 @@
-﻿namespace Pcs.Hfrr.Log
+﻿namespace Utility.Log.Infrastructure
 {
     public class Constants
     {

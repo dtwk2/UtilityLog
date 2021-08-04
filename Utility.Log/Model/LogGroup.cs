@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 
-namespace Pcs.Hfrr.Log.View.Infrastructure
+namespace Utility.Log.Model
 {
-    public class LogGroup : Log, IComparable<LogGroup>
+    public class LogGroup : Utility.Log.Model.Log, IComparable<LogGroup>
     {
-        public LogGroup(Guid key, Log[] logs)
+        public LogGroup(Guid key, Utility.Log.Model.Log[] logs)
         {
             this.Logs = logs;
             var first = logs.First();
@@ -16,7 +16,7 @@ namespace Pcs.Hfrr.Log.View.Infrastructure
             this.Key = key;
         }
 
-        public Log[] Logs { get; }
+        public Utility.Log.Model.Log[] Logs { get; }
 
         public int CompareTo(LogGroup other)
         {

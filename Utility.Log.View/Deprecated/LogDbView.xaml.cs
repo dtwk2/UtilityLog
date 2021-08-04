@@ -1,7 +1,4 @@
-﻿using ReactiveUI;
-using Splat;
-using SQLite;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
@@ -10,8 +7,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using ReactiveUI;
+using Splat;
+using SQLite;
+using Utility.Log.Infrastructure;
 
-namespace Pcs.Hfrr.Log.View
+namespace Utility.Log.View.Deprecated
 {
     /// <summary>
     /// Interaction logic for LogDbView.xaml
@@ -53,7 +54,7 @@ namespace Pcs.Hfrr.Log.View
                 .Merge(connections)
                 .CombineLatest(obs.Merge(obs2).Merge(obs3).Merge(obs4).Merge(obs5).StartWith("Select * from Log limit 50"), (a, b) => (a, b))
                 .SelectMany(c => Task.Run(() =>
-                    c.a.Query<Log>(c.b).ToArray()).ToObservable())
+                    c.a.Query<Utility.Log.Model.Log>(c.b).ToArray()).ToObservable())
                 .ObserveOnDispatcher()
                 .Subscribe(a => this.DataGrid1.ItemsSource = a);
         }

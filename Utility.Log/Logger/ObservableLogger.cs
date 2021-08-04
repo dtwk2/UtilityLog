@@ -1,9 +1,9 @@
-﻿using Splat;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Reactive.Subjects;
+using Splat;
 
-namespace Pcs.Hfrr.Log {
+namespace Utility.Log.Logger {
    public class ObservableLogger : ILogger, IObservableLogger {
       private readonly ISubject<(LogLevel level, object message, DateTime date)> messages;
 

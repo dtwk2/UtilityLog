@@ -6,11 +6,9 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
-using Pcs.Hfrr.Log.View.Infrastructure;
 using Splat;
-using Utility.Infrastructure;
 
-namespace Pcs.Hfrr.Log.Demo
+namespace Utility.Log.Demo
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -20,7 +18,7 @@ namespace Pcs.Hfrr.Log.Demo
       public App() {
          SQLitePCL.Batteries.Init();
 
-         BootStrapper.Register();
+         Utility.Log.Infrastructure.BootStrapper.Register();
          this.Log().Info($"Log level is {this.Log().Level}");
      
       }

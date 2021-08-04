@@ -6,15 +6,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
-using Pcs.Hfrr.Log;
-using Pcs.Hfrr.Log.Model;
-using Pcs.Hfrr.Log.View;
-using Pcs.Hfrr.Log.View.Infrastructure;
 using ReactiveUI;
-using Splat;
 using Utility.Controls;
+using Utility.Log.Model;
+using Utility.Log.View.Infrastructure;
+using Utility.ViewModel;
 
-namespace Utility.Log.View.Controls {
+namespace Utility.Log.View.Deprecated {
    public class LogHost : ContentControl, IShowExceptionDialog {
       private MenuItem? menuItem1;
       private LogWindow? logWindow;

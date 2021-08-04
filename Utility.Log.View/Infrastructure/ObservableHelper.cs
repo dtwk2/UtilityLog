@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using ReactiveUI;
+
 //using Telerik.Windows.Controls;
 //using Telerik.Windows.Controls.GridView;
 //using Telerik.Windows.Data;
 
-namespace Pcs.Hfrr.Log.View.Infrastructure {
+namespace Utility.Log.View.Infrastructure {
     internal static class ObservableHelper {
         // James World
         //http://www.zerobugbuild.com/?p=323

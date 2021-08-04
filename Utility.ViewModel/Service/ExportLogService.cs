@@ -1,21 +1,14 @@
-﻿using Pcs.Hfrr.Log.Common;
-using System;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Reactive.Threading.Tasks;
-using System.Text;
-using System.Threading.Tasks;
-using Pcs.Hfrr.Log.Infrastructure;
-using Pcs.Hfrr.Log.Model;
+using Utility.ViewModel.Infrastructure;
 
-namespace Pcs.Hfrr.Log {
+namespace Utility.ViewModel.Service {
 
    public class ExportService :  IObserver<ExportRequest> {
       private readonly ReplaySubject<Progress> progressSubject = new ReplaySubject<Progress>();
       private readonly ReplaySubject<ExportRequest> exportRequestSubject = new ReplaySubject<ExportRequest>();
-
 
       public ExportService()
       {

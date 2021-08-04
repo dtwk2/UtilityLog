@@ -1,8 +1,8 @@
-﻿using SQLite;
-using System;
+﻿using System;
 using System.Linq;
+using SQLite;
 
-namespace Pcs.Hfrr.Log.Infrastructure
+namespace Utility.Log.Infrastructure
 {
     public class ConnectionFactory
     {

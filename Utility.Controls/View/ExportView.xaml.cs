@@ -1,14 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Reactive.Linq;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using HandyControl.Controls;
 using HandyControl.Data;
 using ReactiveUI;
 using Observable = System.Reactive.Linq.Observable;
 
-namespace Pcs.Hfrr.Log.Demo
+namespace Utility.Controls.View
 {
     /// <summary>
     /// Interaction logic for ExportView.xaml

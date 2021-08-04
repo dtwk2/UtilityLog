@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,17 +12,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Utility.Log.Model;
-using Utility.ViewModel;
+using ReactiveUI;
 
-namespace TestApp {
+namespace Utility.View {
    /// <summary>
-   /// Interaction logic for MainWindow.xaml
+   /// Interaction logic for ExportView.xaml
    /// </summary>
-   public partial class MainWindow : Window {
-      public MainWindow() {
+   public partial class ExportView  {
+      public ExportView() {
          InitializeComponent();
-         ViewModelViewHost.ViewModel = new ExportViewModel(Observable.Return(new Progress()));
+
+         this.WhenActivated(a =>
+         {
+
+
+         });
       }
    }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pcs.Hfrr.Log.View.Infrastructure
+namespace Utility.Log.View.Infrastructure
 {
     public interface IShowExceptionDialog
     {

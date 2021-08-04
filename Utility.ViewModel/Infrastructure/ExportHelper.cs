@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Text;
 using System.Threading.Tasks;
-using Pcs.Hfrr.Log.Common;
-using Pcs.Hfrr.Log.Model;
+using Utility.Log.Infrastructure;
 
-namespace Pcs.Hfrr.Log.Infrastructure {
+namespace Utility.ViewModel.Infrastructure {
    public class ExportHelper {
 
 

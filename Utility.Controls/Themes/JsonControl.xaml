@@ -3,8 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:controls="clr-namespace:Utility.Controls"
-    xmlns:jlinq="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json"
-    xmlns:local="clr-namespace:Pcs.Hfrr.Log.View">
+    xmlns:jlinq="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json">
 
     <ObjectDataProvider
         xmlns:sys="clr-namespace:System;assembly=mscorlib"

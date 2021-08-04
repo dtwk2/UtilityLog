@@ -9,13 +9,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using MaterialDesignThemes.Wpf;
-using Pcs.Hfrr.Log.Model;
 using ReactiveUI;
 using Splat;
 using Utility.Controls;
+using Utility.Log.Demo.ViewModel;
+using Utility.Log.Model;
+using Utility.ViewModel;
 
-
-namespace Pcs.Hfrr.Log.Demo {
+namespace Utility.Log.Demo {
    /// <summary>
    /// Interaction logic for MainWindow.xaml
    /// </summary>

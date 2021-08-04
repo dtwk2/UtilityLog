@@ -3,12 +3,13 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows.Input;
-using Pcs.Hfrr.Log.Infrastructure;
-using Pcs.Hfrr.Log.Model;
 using ReactiveUI;
-using Utility.Infrastructure;
+using Utility.Log;
+using Utility.Log.Model;
+using Utility.ViewModel.Infrastructure;
+using Utility.ViewModel.Service;
 
-namespace Pcs.Hfrr.Log.ViewModel {
+namespace Utility.ViewModel {
 
    public class ExportViewModel : ReactiveObject, IObservable<ExportRequest> {
 
@@ -23,6 +24,7 @@ namespace Pcs.Hfrr.Log.ViewModel {
       private static readonly string FileName = $"LogArchive_{DateTime.Now:yyyy-MM-ddTHH-mm-ss}.zip";
       private const string FilePattern = "Log_*-*-*.sqlite";
       private const string ArchiveReportName = "ArchiveReport.txt";
+      private const string SourceDirectory = "Source";
 
       public ExportViewModel(IObservable<Progress> progressObservable) {
 
@@ -41,7 +43,7 @@ namespace Pcs.Hfrr.Log.ViewModel {
 
                      var (quantity, exportDirectory) = d;
 
-                     var source = BootStrapper.ConnectionDirectory.FullName;
+                     var source = SourceDirectory;
 
                      var fileInfos = ExportHelper.SelectFileInfos(source, FilePattern, quantity);
                      exportRequest.OnNext(new ExportRequest(Guid.NewGuid().ToString().Remove(6), fileInfos,
@@ -65,7 +67,5 @@ namespace Pcs.Hfrr.Log.ViewModel {
          return exportRequest.Subscribe(observer);
       }
    }
-
-
 }
 

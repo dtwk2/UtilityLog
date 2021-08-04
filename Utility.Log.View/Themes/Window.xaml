@@ -148,6 +148,7 @@
                             <ProgressBar
                                 x:Name="MainProgressBar"
                                 Height="3"
+                                Visibility="Collapsed"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Bottom"
                                 HorizontalContentAlignment="Stretch"

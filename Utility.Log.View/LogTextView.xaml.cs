@@ -1,6 +1,4 @@
-﻿using Pcs.Hfrr.Log.View.Infrastructure;
-using Splat;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
@@ -8,8 +6,11 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Splat;
+using Utility.Log.Logger;
+using Utility.Log.View.Infrastructure;
 
-namespace Pcs.Hfrr.Log.View {
+namespace Utility.Log.View {
    /// <summary>
    /// Interaction logic for LogView.xaml
    /// </summary>

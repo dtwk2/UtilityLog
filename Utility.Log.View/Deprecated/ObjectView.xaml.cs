@@ -17,9 +17,8 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
-using HandyControl.Tools.Extension;
 
-namespace Pcs.Hfrr.Log.View {
+namespace Utility.Log.View.Deprecated {
 
    /// <summary>
    /// Interaction logic for ObjectView.xaml

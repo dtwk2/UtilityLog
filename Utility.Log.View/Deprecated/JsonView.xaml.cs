@@ -1,6 +1,5 @@
 ﻿# nullable enable
 
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +11,11 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Newtonsoft.Json.Linq;
 using static LambdaConverters.TemplateSelector;
 using static LambdaConverters.ValueConverter;
 
-namespace Pcs.Hfrr.Log.View
+namespace Utility.Log.View.Deprecated
 {
     /// <summary>
     /// Interaction logic for Json.xaml

@@ -1,7 +1,7 @@
-﻿using Splat;
-using System;
+﻿using System;
+using Splat;
 
-namespace Pcs.Hfrr.Log
+namespace Utility.Log.Logger
 {
     public interface IObservableLogger
     {

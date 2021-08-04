@@ -5,7 +5,7 @@
 
 using System;
 
-namespace Pcs.Hfrr.Log
+namespace Utility.Log.Logger
 {
     /// <summary>
     /// A logger which will send messages to the console.

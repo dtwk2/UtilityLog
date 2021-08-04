@@ -1,8 +1,8 @@
-﻿using Microsoft.Xaml.Behaviors;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Controls;
+using Microsoft.Xaml.Behaviors;
 
-namespace Pcs.Hfrr.Log.View.Infrastructure
+namespace Utility.Log.View.Infrastructure
 {
     public class DataGridCustomDataTemplateBehavior : Behavior<DataGrid>
     {

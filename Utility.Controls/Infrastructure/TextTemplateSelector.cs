@@ -3,7 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Pcs.Hfrr.Log.View.Infrastructure
+
+namespace Utility.Controls.Infrastructure
 {
     public class TextTemplateSelector : DataTemplateSelector
     {
@@ -21,7 +22,7 @@ namespace Pcs.Hfrr.Log.View.Infrastructure
             property ??= item?.GetType().GetProperty(Property);
 
             // your logic do determine what template you need goes here
-            if (item is Log log && property?.GetValue(log) is string str)
+            if (item is Log.Model.Log log && property?.GetValue(log) is string str)
             {
                 if (str.Split('\r') is string[] split)
                     if (split.Length > 1 || split.Length > 0 && ContentsBiggerThanTextBox(new TextBlock(),split[0], (int)Width))

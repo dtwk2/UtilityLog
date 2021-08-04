@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Reactive.Disposables;
 using System.Windows.Threading;
+using Splat;
 
-namespace Pcs.Hfrr.Log.View.Infrastructure
+namespace Utility.Log.View.Infrastructure
 {
-    using Splat;
-
-    public class UIFreezeObserver : IEnableLogger
+   public class UIFreezeObserver : IEnableLogger
     {
         public IDisposable Observe()
         {

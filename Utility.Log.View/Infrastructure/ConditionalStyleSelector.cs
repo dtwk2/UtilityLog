@@ -1,10 +1,10 @@
-﻿using Splat;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Splat;
 
-namespace Pcs.Hfrr.Log.View.Infrastructure
+namespace Utility.Log.View.Infrastructure
 {
     public class ConditionalStyleSelector : StyleSelector
     {
@@ -12,7 +12,7 @@ namespace Pcs.Hfrr.Log.View.Infrastructure
 
         public override Style SelectStyle(object item, System.Windows.DependencyObject container)
         {
-            return item is Log { Level: LogLevel level } &&
+            return item is Utility.Log.Model.Log { Level: LogLevel level } &&
                    this.Rules.FirstOrDefault(a => Equals(a.Value, level)) is { } rule ?
                 rule.Style :
                 base.SelectStyle(item, container);

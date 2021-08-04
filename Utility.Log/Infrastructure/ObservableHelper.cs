@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Reactive.Linq;
 
-namespace Pcs.Hfrr.Log.Common
+namespace Utility.Log.Infrastructure
 {
     public static class ObservableHelper
     {

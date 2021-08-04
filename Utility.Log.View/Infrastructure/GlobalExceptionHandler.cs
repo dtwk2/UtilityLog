@@ -1,6 +1,5 @@
 ﻿//using Forge.Forms;
-using ReactiveUI;
-using Splat;
+
 using System;
 using System.Diagnostics;
 using System.Reactive.Concurrency;
@@ -8,8 +7,10 @@ using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using ReactiveUI;
+using Splat;
 
-namespace Pcs.Hfrr.Log.View.Infrastructure
+namespace Utility.Log.View.Infrastructure
 {
     public class GlobalExceptionHandler : IEnableLogger
     {

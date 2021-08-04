@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 
-namespace Pcs.Hfrr.Log.View.Infrastructure
+namespace Utility.Controls.Infrastructure
 {
     public class SingleLineConverter : IValueConverter
     {

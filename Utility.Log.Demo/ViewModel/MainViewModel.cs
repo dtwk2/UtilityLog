@@ -1,12 +1,11 @@
 ﻿//using AspectInjector.Broker;
 
-//using Pcs.Hfrr.Log.Advice;
-using ReactiveUI;
-using Splat;
 using System;
 using System.Reactive.Linq;
+using ReactiveUI;
+using Splat;
 
-namespace Pcs.Hfrr.Log.Demo {
+namespace Utility.Log.Demo.ViewModel {
    /// <summary>
    /// Interaction logic for MainWindow.xaml
    /// </summary>

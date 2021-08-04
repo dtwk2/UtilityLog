@@ -1,18 +1,18 @@
 ﻿<UserControl
-    x:Class="Pcs.Hfrr.Log.View.LogDbView"
+    x:Class="Utility.Log.View.Deprecated.LogDbView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:infra="clr-namespace:Pcs.Hfrr.Log.View.Infrastructure"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:infrastructure="clr-namespace:Utility.Log.View.Infrastructure"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style x:Key="HighlightRow" TargetType="{x:Type DataGridRow}">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Converter={x:Static infra:Converter.ModConverter}}" Value="True">
+                <DataTrigger Binding="{Binding Converter={x:Static infrastructure:Converter.ModConverter}}" Value="True">
                     <Setter Property="Background" Value="GhostWhite" />
                 </DataTrigger>
             </Style.Triggers>
@@ -34,8 +34,8 @@
             AutoGenerateColumns="true"
             RowStyle="{StaticResource HighlightRow}">
             <i:Interaction.Behaviors>
-                <infra:DataGridHideBrowsableFalseBehavior />
-                <infra:DataGridCustomDataTemplateBehavior />
+                <infrastructure:DataGridHideBrowsableFalseBehavior />
+                <infrastructure:DataGridCustomDataTemplateBehavior />
             </i:Interaction.Behaviors>
         </DataGrid>
     </DockPanel>

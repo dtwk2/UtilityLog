@@ -1,22 +1,22 @@
-﻿using Splat;
-using SQLite;
-using System;
+﻿using System;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
+using Splat;
+using SQLite;
 
-namespace Pcs.Hfrr.Log
+namespace Utility.Log.Logger
 {
     public class SQLiteLogger : ObservableLogger
     {
-        private static readonly string statement = $"SELECT MAX({nameof(Log.RunCount)}) as {nameof(Runcount.Value)} FROM {nameof(Log)}";
+        private static readonly string statement = $"SELECT MAX({nameof(Model.Log.RunCount)}) as {nameof(Runcount.Value)} FROM {nameof(Model.Log)}";
 
         private readonly Subject<Unit> isInitialised = new Subject<Unit>();
 
         public SQLiteLogger(SQLiteAsyncConnection sqliteAsyncConnection)
         {
-            var obs = sqliteAsyncConnection.CreateTableAsync<Log>()
+            var obs = sqliteAsyncConnection.CreateTableAsync<Model.Log>()
                 .ToObservable();
 
             _ = Messages
@@ -29,14 +29,14 @@ namespace Pcs.Hfrr.Log
                         var guid = Guid.NewGuid();
 
                         if (result == CreateTableResult.Created)
-                            this.Write($"Table {nameof(Log)} has been {result}.", LogLevel.Info);
+                            this.Write($"Table {nameof(Model.Log)} has been {result}.", LogLevel.Info);
                         if (message is string msg)
-                            await sqliteAsyncConnection.InsertAsync(new Log(msg, level, runCount) { Key = guid });
+                            await sqliteAsyncConnection.InsertAsync(new Model.Log(msg, level, runCount) { Key = guid });
                         if (message is Exception exception)
                         {
                             while (exception != null)
                             {
-                                await sqliteAsyncConnection.InsertAsync(new Log(exception, level, runCount) { Key = guid });
+                                await sqliteAsyncConnection.InsertAsync(new Model.Log(exception, level, runCount) { Key = guid });
                                 exception = exception.InnerException;
                             }
                         }
@@ -54,7 +54,7 @@ namespace Pcs.Hfrr.Log
 
         public SQLiteLogger(SQLiteConnection sqliteConnection)
         {
-            sqliteConnection.CreateTable<Log>();
+            sqliteConnection.CreateTable<Model.Log>();
 
             var runCount = RunCount(sqliteConnection);
 
@@ -67,12 +67,12 @@ namespace Pcs.Hfrr.Log
                     {
                         var guid = Guid.NewGuid();
                         if (message is string msg)
-                            sqliteConnection.Insert(new Log(msg, level, runCount) {Date = date,Key = guid });
+                            sqliteConnection.Insert(new Model.Log(msg, level, runCount) {Date = date,Key = guid });
                         if (message is System.Exception exception)
                         {
                             while (exception != null)
                             {
-                                sqliteConnection.Insert(new Log(exception, level, runCount) { Date = date, Key = guid });
+                                sqliteConnection.Insert(new Model.Log(exception, level, runCount) { Date = date, Key = guid });
                                 exception = exception.InnerException;
                             }
                         }

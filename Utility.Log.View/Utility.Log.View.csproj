@@ -18,7 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CustomWindow\CustomWindow.csproj" />
     <ProjectReference Include="..\SnazzyWpfBorders\SnazzyWpfBorders.csproj" />
-    <ProjectReference Include="..\Utility.View\Utility.Controls.csproj" />
+    <ProjectReference Include="..\Utility.Controls\Utility.Controls.csproj" />
   </ItemGroup>
 
   <ItemGroup>
